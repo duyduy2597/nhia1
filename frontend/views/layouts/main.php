@@ -27,57 +27,23 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-   <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title>Trang chu</title>
-    <?php $this->head() ?>
+	<meta charset="<?= Yii::$app->charset ?>">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php $this->registerCsrfMetaTags() ?>
+	<title>Trang chu</title>
+	<?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
-<header id="header"><!--header-->
+	<?php $this->beginBody() ?>
+	<header id="header"><!--header-->
 		<?= headertopWidget::widget(); ?>
 		<?= headermiddleWidget::widget(); ?>
 		<?= headerbottomWidget::widget(); ?>
-		
-	
-		
 	</header><!--/header-->
 	
-	<section id="slider"><!--slider-->
-		<?= sliderWidget::widget(); ?>
-	</section><!--/slider-->
-	
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<?= categoryWidget::widget(); ?>
-					
-						<?= brandsproductsWidget::widget(); ?>
-					
-						<?= pricerangeWidget::widget();?>
-						<?= shippingWidget::widget();?>
-					
-					</div>
-				</div>
-				
-				<div class="col-sm-9 padding-right">
-					<?= featuresitemsWidget::widget(); ?>
-					<?= recommendeditemsWidget::widget(); ?>
-					<?= Breadcrumbs::widget([
-							'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-					]) ?>
-					<?= Alert::widget()?>
-					<?= $content ?>
-					
-				</div>
-			</div>
-		</div>
-	</section>
-	
+	<?= $content ?>
+
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -236,7 +202,7 @@ AppAsset::register($this);
 		
 	</footer><!--/Footer-->
 
-<?php $this->endBody() ?>
+	<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
