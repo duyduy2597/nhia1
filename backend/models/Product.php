@@ -44,11 +44,12 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pro_name', 'pro_image', 'pro_price', 'created_at', 'updated_at'], 'required'],
+            [['pro_image'],'file', 'maxFiles' => 2,'extensions' => 'png,jpg,gif', 'skipOnEmpty' => true],
+            [['pro_name', 'pro_price', 'created_at', 'updated_at','cat_id'], 'required'],
             [['pro_price', 'cat_id', 'supplier', 'pro_size_id', 'pro_color_id', 'pro_made_id', 'created_at', 'updated_at'], 'integer'],
             [['date_sale_off', 'end_cate_sale'], 'safe'],
             [['comment', 'complaint'], 'string'],
-            [['pro_name', 'pro_image', 'pro_sale_off', 'description', 'meta_keyword', 'meta_description'], 'string', 'max' => 255],
+            [['pro_name', 'pro_sale_off', 'description', 'meta_keyword', 'meta_description'], 'string', 'max' => 255],
         ];
     }
 
@@ -63,7 +64,7 @@ class Product extends \yii\db\ActiveRecord
             'pro_image' => 'Pro Image',
             'pro_price' => 'Pro Price',
             'pro_sale_off' => 'Pro Sale Off',
-            'cat_id' => 'Cat ID',
+            'cat_id' => 'Thể loại',
             'supplier' => 'Supplier',
             'pro_size_id' => 'Pro Size ID',
             'pro_color_id' => 'Pro Color ID',

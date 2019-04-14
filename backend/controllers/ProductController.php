@@ -9,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use backend\models\Category;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
@@ -65,8 +64,6 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-        //$test = Category::testMenu(Category::findAll(['isDeleted' => 0]));
-        //var_dump($test);die;
         $model = new Product();
         $time = time();
         $model->created_at=$time;
@@ -74,14 +71,13 @@ class ProductController extends Controller
 
         if ($model->load(Yii::$app->request->post()))  {
             $proId = $model->pro_id;
-            $image = UploadedFile::getInstance($model,'pro_image');
-            $imgName = preg_replace('/\s+/', '', $model->pro_name).'-'.time().'.'.$image->getExtension();
-            $image ->saveAs(Yii::getAlias('@app/web/upload').'/'.$imgName);
+            $image = UploadedFile::getInstances($model,'pro_image');
+            $imgName = preg_replace('/\s+/', '', $model->pro_name).'-'.time().'.'.$image[0]->getExtension();
+            $image[0]->saveAs(Yii::getAlias('@app/web/upload').'/'.$imgName);
             $model->pro_image = $imgName; 
             $model->save();  
             return $this->redirect(['update', 'id' => $model->pro_id]);
         }else{
-
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -101,12 +97,12 @@ class ProductController extends Controller
         if ($model->load(Yii::$app->request->post()))  {
             //$model->save();
             $proId = $model->pro_id;
-            $image = UploadedFile::getInstance($model,'pro_image');
-            $imgName ='pro_'.$proId.'.'.$image->getExtension();
-            $image -> saveAs(Yii::getAlias('@proimagePath').'/'.$imgName);
-            $model->pro_image = $imgName; 
+            // $image = UploadedFile::getInstance($model,'pro_image');
+            // $imgName ='pro_'.$proId.'.'.$image->getExtension();
+            // $image -> saveAs(Yii::getAlias('@proimagePath').'/'.$imgName);
+            $model->pro_image = $model->oldAttributes['pro_image']; 
             $model->save();  
-            return $this->redirect(['view', 'id' => $model->pro_id]);
+            return $this->redirect(['update', 'id' => $model->pro_id]);
         }else{
 
         //if ($model->load(Yii::$app->request->post()) && $model->save()) {

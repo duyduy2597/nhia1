@@ -35,7 +35,7 @@ class Category extends ActiveRecord
     {
         return [
             [['cat_name',], 'required'],
-            [['prent_id', 'status',], 'integer'],
+            [['prent_id',], 'integer'],
             [['cat_name', 'meta_keyword', 'meta_description'], 'string', 'max' => 255],
             [['cat_name'], 'unique'],
             [['cat_icon'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
@@ -55,7 +55,6 @@ class Category extends ActiveRecord
             'cat_icon' => 'Thumbnail',
             'meta_keyword' => 'Meta Keyword',
             'meta_description' => 'Meta Description',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -85,7 +84,7 @@ class Category extends ActiveRecord
                 echo '<option value="'.$cate['cat_id'].'">';
                 echo $char . $cate['cat_name'];
                 echo '</option>';
-            // Xóa chuyên mục đã lặp
+            //  Xóa chuyên mục đã lặp
                 unset($categories[$key]);
 
             // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
@@ -93,4 +92,29 @@ class Category extends ActiveRecord
             }
         }
     }
+
+
+    public static function getCategories($parent_id = 0, $exclude = '', $space = '', $categories='')
+    {
+        if($parent_id == 0){
+            $space = '';
+            $categories = array();
+        }else{
+            $space .='|---';
+        }
+
+        $model = Category::findAll([
+            'prent_id' => $parent_id,
+        ]);
+        if(!empty($model)){
+            foreach ($model as $key) {
+                if($key->cat_id == $exclude) continue;
+                $categories[$key->cat_id] = array('cat_id'=>$key->cat_id, 'cat_name'=> $space.$key->cat_name);
+                $categories = self::getCategories($key->cat_id, $exclude, $space, $categories);
+            }
+        }
+
+        return $categories;
+    }
+
 }

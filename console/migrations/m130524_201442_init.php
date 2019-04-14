@@ -39,6 +39,7 @@ class m130524_201442_init extends Migration
             'cat_icon' => $this->string(),
             'meta_keyword' => $this->string(),
             'meta_description' => $this->string(),
+            'fullParent' => $this->string(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'isDeleted' => $this->boolean()->defaultValue(0),
@@ -46,7 +47,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-           $this->createTable('product', [
+        $this->createTable('product', [
             'pro_id' => $this->primaryKey(),
             'pro_name' => $this->string()->notNull(),
             'pro_image' => $this->string()->notNull(),
@@ -71,7 +72,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-            $this->createTable('made', [
+        $this->createTable('made', [
             'made_id' => $this->primaryKey(),
             'made_name' => $this->string()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -81,7 +82,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-           $this->createTable('color', [
+        $this->createTable('color', [
             'color_id' => $this->primaryKey(),
             'color_name' => $this->string()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -91,7 +92,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-           $this->createTable('size', [
+        $this->createTable('size', [
             'size_id' => $this->primaryKey(),
             'size_name' => $this->string()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -101,7 +102,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-           $this->createTable('wishlist', [
+        $this->createTable('wishlist', [
             'wish_id' => $this->primaryKey(),
             'wish_name' => $this->string()->notNull(),
             'pro_id' => $this->integer()->notNull(),
@@ -112,7 +113,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-             $this->createTable('supplier', [
+        $this->createTable('supplier', [
             'sup_id' => $this->primaryKey(),
             'sup_name' => $this->string()->notNull(),
             'mobile' => $this->char(11)->notNull(),
@@ -144,7 +145,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-          $this->createTable('order_detail', [
+        $this->createTable('order_detail', [
             'detail_id' => $this->primaryKey(),
             'order_id' => $this->integer(),
             'pro_id' => $this->integer(),
@@ -157,7 +158,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
-            $this->createTable('payment', [
+        $this->createTable('payment', [
             'id' => $this->primaryKey(),
             'payment_id' => $this->string()->notNull(),
             'order_id' => $this->integer(),
@@ -168,7 +169,7 @@ class m130524_201442_init extends Migration
             'deletedTime'=> $this->integer(),
 
         ], $tableOptions);   
-            $this->createTable('deliver',[
+        $this->createTable('deliver',[
             'del_id' => $this->primaryKey(),
             'del_name' => $this->string()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -205,6 +206,73 @@ class m130524_201442_init extends Migration
             'cat_icon' => '',
             'meta_keyword' => '',
             'meta_description' =>'',
+            'fullParent' => '',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Quần',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Jean',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1,2',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Jogger',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1,2',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Quần tây',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1,2',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Áo',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Giày',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'fullParent' => '1',
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
         ]);
@@ -215,99 +283,43 @@ class m130524_201442_init extends Migration
             'cat_icon' => '',
             'meta_keyword' => '',
             'meta_description' =>'',
+            'fullParent' => '',
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
         ]);
 
         $this->insert('category', [          
             'cat_name' => 'Quần',
-            'prent_id' => 1,
+            'prent_id' => 8,
             'cat_icon' => '',
             'meta_keyword' => '',
             'meta_description' =>'',
+            'fullParent' => '8',
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
         ]);
 
         $this->insert('category', [          
             'cat_name' => 'Áo',
-            'prent_id' => 1,
+            'prent_id' => 8,
             'cat_icon' => '',
             'meta_keyword' => '',
             'meta_description' =>'',
+            'fullParent' => '8',
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
         ]);
 
         $this->insert('category', [          
             'cat_name' => 'Giày',
-            'prent_id' => 1,
+            'prent_id' => 8,
             'cat_icon' => '',
             'meta_keyword' => '',
             'meta_description' =>'',
+            'fullParent' => '8',
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Quần',
-            'prent_id' => 2,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Áo',
-            'prent_id' => 2,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Giày',
-            'prent_id' => 2,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Jean',
-            'prent_id' => 3,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Jogger',
-            'prent_id' => 3,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
-
-        $this->insert('category', [          
-            'cat_name' => 'Quần tây',
-            'prent_id' => 3,
-            'cat_icon' => '',
-            'meta_keyword' => '',
-            'meta_description' =>'',
-            'created_at' => date_timestamp_get($date),
-            'updated_at' => date_timestamp_get($date),
-        ]);
+        ]); 
 
     }
 
