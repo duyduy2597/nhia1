@@ -6,7 +6,6 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -18,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -27,7 +25,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'pro_id',
             'pro_name',
-            'pro_image',
+            [
+                'label'=>'Hình ảnh',
+                'format'=>'raw',
+                'value' => function($data){
+                    $urlImage = Yii::getAlias('@web/upload');
+                    return Html::img($urlImage.'/'.$data->pro_image,[
+                        'alt' => $data->pro_name,
+                        'width' => 150,
+                        'height' => 150
+                    ]); 
+                }
+            ],
+            // 'pro_image' => function($url,$model,$key)
+            // {
+            //     return $key;
+            // },
             'pro_price',
             'pro_sale_off',
             //'cat_id',
@@ -46,7 +59,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'template' => '{update} {delete}'
+            ],
         ],
     ]); ?>
 </div>
