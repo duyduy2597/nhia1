@@ -34,14 +34,16 @@ class m130524_201442_init extends Migration
 
         $this->createTable('category', [
             'cat_id' => $this->primaryKey(),
-            'cat_name' => $this->string()->notNull()->unique(),
+            'cat_name' => $this->string(),
             'prent_id' => $this->integer(),
             'cat_icon' => $this->string(),
             'meta_keyword' => $this->string(),
             'meta_description' => $this->string(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
            $this->createTable('product', [
@@ -62,49 +64,66 @@ class m130524_201442_init extends Migration
             'meta_description' => $this->string(),
             'comment' => $this->getDb()->getSchema()->createColumnSchemaBuilder('LONGTEXT'),
             'complaint' => $this->getDb()->getSchema()->createColumnSchemaBuilder('LONGTEXT'),  
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
 
             $this->createTable('made', [
             'made_id' => $this->primaryKey(),
             'made_name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
            $this->createTable('color', [
             'color_id' => $this->primaryKey(),
             'color_name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
            $this->createTable('size', [
             'size_id' => $this->primaryKey(),
             'size_name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
            $this->createTable('wishlist', [
             'wish_id' => $this->primaryKey(),
             'wish_name' => $this->string()->notNull(),
             'pro_id' => $this->integer()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
              $this->createTable('supplier', [
             'sup_id' => $this->primaryKey(),
             'sup_name' => $this->string()->notNull(),
             'mobile' => $this->char(11)->notNull(),
             'address' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
         $this->createTable('order', [
             'order_id' => $this->primaryKey(),
             'use_id' => $this->string()->notNull(),
@@ -117,33 +136,46 @@ class m130524_201442_init extends Migration
             'address_ship' => $this->string()->notNull(),
             'request' => $this->string(11)->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'details' => $this->getDb()->getSchema()->createColumnSchemaBuilder('LONGTEXT'),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
           $this->createTable('order_detail', [
             'detail_id' => $this->primaryKey(),
             'order_id' => $this->integer(),
             'pro_id' => $this->integer(),
             'pro_price' => $this->integer(),
             'pro_amount' => $this->integer(),//soluong
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions);
+
             $this->createTable('payment', [
-            'pay_id' => $this->primaryKey(),
-            'pay_name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'id' => $this->primaryKey(),
+            'payment_id' => $this->string()->notNull(),
+            'order_id' => $this->integer(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
+
         ], $tableOptions);   
             $this->createTable('deliver',[
             'del_id' => $this->primaryKey(),
             'del_name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'isDeleted' => $this->boolean()->defaultValue(0),
+            'deletedUserId' => $this->integer(),
+            'deletedTime'=> $this->integer(),
         ], $tableOptions); 
 
         $this->insert('user', [          
@@ -165,7 +197,117 @@ class m130524_201442_init extends Migration
             'created_at' => date_timestamp_get($date),
             'updated_at' => date_timestamp_get($date),
             'role_id' => 2,
-        ]); 
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Nam',
+            'prent_id' => 0,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Nữ',
+            'prent_id' => 0,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Quần',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Áo',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Giày',
+            'prent_id' => 1,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Quần',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Áo',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Giày',
+            'prent_id' => 2,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Jean',
+            'prent_id' => 3,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Jogger',
+            'prent_id' => 3,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
+
+        $this->insert('category', [          
+            'cat_name' => 'Quần tây',
+            'prent_id' => 3,
+            'cat_icon' => '',
+            'meta_keyword' => '',
+            'meta_description' =>'',
+            'created_at' => date_timestamp_get($date),
+            'updated_at' => date_timestamp_get($date),
+        ]);
 
     }
 

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pro_name',
             [
                 'attribute'=>'pro_image',
-                'value'=>Yii::getAlias('@proimageUrl') . '/' .$model->pro_image,
+                'value'=>Yii::getAlias('@web') . '/upload/' .$model->pro_image,
                 'format'=>['image',['width' =>'100','height'=>'100']]
             
             ],

@@ -45,7 +45,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['pro_name', 'pro_image', 'pro_price', 'created_at', 'updated_at'], 'required'],
-            [['pro_price', 'cat_id', 'supplier', 'pro_size_id', 'pro_color_id', 'pro_made_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['pro_price', 'cat_id', 'supplier', 'pro_size_id', 'pro_color_id', 'pro_made_id', 'created_at', 'updated_at'], 'integer'],
             [['date_sale_off', 'end_cate_sale'], 'safe'],
             [['comment', 'complaint'], 'string'],
             [['pro_name', 'pro_image', 'pro_sale_off', 'description', 'meta_keyword', 'meta_description'], 'string', 'max' => 255],
@@ -75,7 +75,6 @@ class Product extends \yii\db\ActiveRecord
             'meta_description' => 'Meta Description',
             'comment' => 'Comment',
             'complaint' => 'Complaint',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

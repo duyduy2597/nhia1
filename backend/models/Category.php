@@ -73,4 +73,24 @@ class Category extends ActiveRecord
             ],
         ];
     }
+
+    
+    public static function showCategories($categories,$prent_id = 0, $char = '')
+    {
+        foreach ($categories as $key => $cate)
+        {
+            $cate = $cate->attributes;
+            if ($cate['prent_id'] == $prent_id)
+            {
+                echo '<option value="'.$cate['prent_id'].'">';
+                echo $char . $cate['cat_name'];
+                echo '</option>';
+            // Xóa chuyên mục đã lặp
+                unset($categories[$key]);
+
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                self::showCategories($categories, $cate['cat_id'], $char.'|---');
+            }
+        }
+    }
 }

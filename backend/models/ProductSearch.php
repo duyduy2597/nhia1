@@ -17,7 +17,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['pro_id', 'pro_price', 'cat_id', 'supplier', 'pro_size_id', 'pro_color_id', 'pro_made_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['pro_id', 'pro_price', 'cat_id', 'supplier', 'pro_size_id', 'pro_color_id', 'pro_made_id', 'created_at', 'updated_at'], 'integer'],
             [['pro_name', 'pro_image', 'pro_sale_off', 'description', 'date_sale_off', 'end_cate_sale', 'meta_keyword', 'meta_description', 'comment', 'complaint'], 'safe'],
         ];
     }
@@ -67,7 +67,7 @@ class ProductSearch extends Product
             'pro_made_id' => $this->pro_made_id,
             'date_sale_off' => $this->date_sale_off,
             'end_cate_sale' => $this->end_cate_sale,
-            'status' => $this->status,
+            'isDeleted' => 0,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -31,14 +31,66 @@ AppAsset::register($this);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php $this->registerCsrfMetaTags() ?>
-	<title>Trang chu</title>
+	<title><?php echo $this->title; ?></title>
 	<?php $this->head() ?>
 </head>
 <body>
 	<?php $this->beginBody() ?>
 	<header id="header"><!--header-->
 		<?= headertopWidget::widget(); ?>
-		<?= headermiddleWidget::widget(); ?>
+
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 clearfix">
+						<div class="logo pull-left">
+							<a href="/"><img src="images/home/logo.png" alt="" /></a>
+						</div>
+						<div class="btn-group pull-right clearfix">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									USA
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="">Canada</a></li>
+									<li><a href="">UK</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									DOLLAR
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="">Canadian Dollar</a></li>
+									<li><a href="">Pound</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 clearfix">
+						<div class="shop-menu clearfix pull-right">
+							<ul class="nav navbar-nav">							
+								<?php if (!Yii::$app->user->isGuest): ?>
+									<li><a href=""><i class="fa fa-user"></i> <?php echo Yii::$app->user->identity->username; ?></a></li>
+								<?php endif ?>
+								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<?php if (Yii::$app->user->isGuest): ?>
+									<li><a href="/site/login"><i class="fa fa-lock"></i> Login</a></li>
+								<?php endif ?>
+								<?php if (!Yii::$app->user->isGuest): ?>
+									<li><a href="site/logout" data-method='post'><i class="fa fa-sign-out"></i> Logout</a></li>
+								<?php endif ?>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<?= headerbottomWidget::widget(); ?>
 	</header><!--/header-->
 	
