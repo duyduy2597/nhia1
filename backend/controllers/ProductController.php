@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
+use backend\models\Category;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
@@ -65,6 +65,8 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
+        //$test = Category::testMenu(Category::findAll(['isDeleted' => 0]));
+        //var_dump($test);die;
         $model = new Product();
         $time = time();
         $model->created_at=$time;

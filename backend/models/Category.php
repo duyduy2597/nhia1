@@ -82,7 +82,7 @@ class Category extends ActiveRecord
             $cate = $cate->attributes;
             if ($cate['prent_id'] == $prent_id)
             {
-                echo '<option value="'.$cate['prent_id'].'">';
+                echo '<option value="'.$cate['cat_id'].'">';
                 echo $char . $cate['cat_name'];
                 echo '</option>';
             // Xóa chuyên mục đã lặp
