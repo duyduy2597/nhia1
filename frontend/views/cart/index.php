@@ -40,13 +40,13 @@ $urlImage = Yii::$app->params['be'].'upload';
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
-										<a class="cart_quantity_up" href=""> + </a>
-										<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo $product['quantity']; ?>" autocomplete="off" size="2">
-										<a class="cart_quantity_down" href=""> - </a>
+										<a id ='up-quantity-item-<?php echo $key; ?>' class="cart_quantity_up" href="javascript:;" onclick='quantityUpdate(<?php echo json_encode($product); ?>,"up")'> <i class="fa fa-plus" aria-hidden="true"></i> </a>
+										<input class="cart_quantity_input" type="text" id='quantity-item-<?php echo $key; ?>' value="<?php echo $product['quantity']; ?>" autocomplete="off" size="2">
+										<a id ='down-quantity-item-<?php echo $key; ?>' class="cart_quantity_down" href="javascript:;" onclick='quantityUpdate(<?php echo json_encode($product); ?>,"down")'><i class="fa fa-minus" aria-hidden="true"></i> </a>
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price"><?php echo number_format(($product['quantity']*$product['pro_price'])); ?> VNĐ</p>
+									<p class="cart_total_price" id='total-item-<?php echo $key; ?>'><?php echo number_format(($product['quantity']*$product['pro_price'])); ?></p> VNĐ
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
@@ -74,7 +74,7 @@ $urlImage = Yii::$app->params['be'].'upload';
 							<li>Cart Sub Total <span>Free</span></li>
 							<li>Eco Tax <span>Free</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span><?php echo number_format($tongTien); ?> VNĐ</span></li>
+							<li>Total <span id="displayCartTotal"><?php echo number_format($tongTien).' VNĐ'; ?></span></li>
 						</ul>
 						<a class="btn btn-default check_out" href="">Check Out</a>
 					</div>
