@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use backend\models\Product;
 
 /**
  * Site controller
@@ -72,9 +73,38 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $data = Product::findAll(['isDeleted' => 0]);
+        $arrProduct = [];
+        foreach ($data as $value) {
+            $arrProduct[$value['pro_id']] = $value->attributes;
+        }
+        return $this->render('index',[
+            'arrProduct' => $arrProduct
+        ]);
     }
 
+    public function actionDetailProduct($id)
+    {
+        $product = Product::findOne($id);
+        return $this->render('detail-product',[
+            'product' => $product->attributes
+        ]);
+    }
+
+    public function actionAddToCart()
+    {
+        $data = $_POST['data'];
+        $session = Yii::$app->session;
+      // $session->destroy();die;
+        $currentData = $session['cart'];
+        $currentData[$data['id']] = json_encode($data);
+
+        $session['cart'] = $currentData;
+        //var_dump($session['cart']);
+        echo count($session['cart']);
+        die;
+    }
+    
     /**
      * Logs in a user.
      *

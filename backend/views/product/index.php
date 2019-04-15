@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Hình ảnh',
                 'format'=>'raw',
                 'value' => function($data){
-                    $urlImage = Yii::getAlias('@web/upload');
+                    $urlImage = Yii::$app->params['be'].'upload'; 
                     return Html::img($urlImage.'/'.$data->pro_image,[
                         'alt' => $data->pro_name,
                         'width' => 150,
@@ -37,11 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); 
                 }
             ],
-            // 'pro_image' => function($url,$model,$key)
-            // {
-            //     return $key;
-            // },
-            'pro_price',
+            [
+                'label'=>'Giá',
+                'format'=>'raw',
+                'value' => function($data){
+                    return number_format($data->pro_price).' VNĐ'; 
+                }
+            ],
+
             'pro_sale_off',
             //'cat_id',
             //'supplier',

@@ -6,12 +6,14 @@ use frontend\widgets\recommendeditemsWidget;
 use yii\widgets\Breadcrumbs;
 use frontend\widgets\sliderWidget;
 use common\widgets\Alert;
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
-
-<section id="slider"><!--slider-->
+<!--
+<section id="slider">
 	<?= sliderWidget::widget(); ?>
-</section><!--/slider-->
+</section>-->
 
 <section>
 	<div class="container">
@@ -95,14 +97,48 @@ use common\widgets\Alert;
 			</div>
 			
 			<div class="col-sm-9 padding-right">
-				<?= featuresitemsWidget::widget(); ?>
-				<?= recommendeditemsWidget::widget(); ?>
-				<?= Breadcrumbs::widget([
-					'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-				]) ?>
-				<?= Alert::widget()?>
+				<div class="features_items"><!--features_items-->
+					<h2 class="title text-center">Sản phẩm hot</h2>
+					<?php 
+					$urlImage = Yii::$app->params['be'].'upload'; 
+					?>
+					<?php foreach ($arrProduct as $key => $pro): ?>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<?php $image = Html::img($urlImage.'/'.$pro['pro_image'], ['alt'=> $pro['pro_name']]);?>
+										<?php echo Html::a($image,Url::to(['site/detail-product','id' => $key])); ?>
+										<h2><?php echo number_format($pro['pro_price']); ?> VNĐ</h2>
+										<p><?php echo $pro['pro_name']; ?></p>
+										<a href="javascript:;" onclick='addToCart(<?php echo json_encode([
+											'id' => $key,
+											'pro_name' => $pro['pro_name'],
+											'quantity' => 1,
+											'pro_price' => $pro['pro_price'],
+											'pro_image' => $pro['pro_image'],
+											]); ?>)' class="btn btn-default add-to-cart">
+											<i class="fa fa-shopping-cart"></i> Add to cart
+										</a>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<!-- <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li> -->
+										</ul>
+									</div>
+								</div>
+							</div>
+						<?php endforeach ?>	
+					</div><!--features_items-->
+					<?= recommendeditemsWidget::widget(); ?>
+					<?= Breadcrumbs::widget([
+						'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+					]) ?>
+					<?= Alert::widget()?>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 

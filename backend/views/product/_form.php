@@ -33,7 +33,7 @@ use backend\models\Product;
 
         <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
         
-        <?php $urlImage = Yii::getAlias('@web/upload'); ?>
+        <?php $urlImage = Yii::$app->params['be'].'upload';  ?>
         
         <?php 
         echo Html::img($urlImage.'/'.$model->pro_image, [

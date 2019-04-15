@@ -72,9 +72,14 @@ class ProductController extends Controller
         if ($model->load(Yii::$app->request->post()))  {
             $proId = $model->pro_id;
             $image = UploadedFile::getInstances($model,'pro_image');
-            $imgName = preg_replace('/\s+/', '', $model->pro_name).'-'.time().'.'.$image[0]->getExtension();
-            $image[0]->saveAs(Yii::getAlias('@app/web/upload').'/'.$imgName);
-            $model->pro_image = $imgName; 
+            if (count($image) > 0) {
+                $imgName = preg_replace('/\s+/', '', $model->pro_name).'-'.time().'.'.$image[0]->getExtension();
+                $image[0]->saveAs(Yii::getAlias('@app/web/upload').'/'.$imgName);
+                $model->pro_image = $imgName; 
+            }
+            else{
+                $model->pro_image = ''; 
+            }
             $model->save();  
             return $this->redirect(['update', 'id' => $model->pro_id]);
         }else{

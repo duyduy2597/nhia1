@@ -8,6 +8,21 @@ var RGBChange = function () {
     $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
 };
 
+function addToCart(pro) {
+    console.log(pro);
+    $.ajax({
+        url : "/cart/add-to-cart",
+        type : "post",
+        dataType : "text",
+        data : {
+            data : pro
+     },
+     success : function (result){
+        $('#itemsCart').html("("+result+")");
+    }
+});
+}
+
 /*scroll to top*/
 
 $(document).ready(function () {
