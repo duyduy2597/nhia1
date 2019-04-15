@@ -77,7 +77,7 @@ AppAsset::register($this);
 									<li><a href=""><i class="fa fa-user"></i> <?php echo Yii::$app->user->identity->username; ?></a></li>
 								<?php endif ?>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="/cart/index"><i class="fa fa-shopping-cart"></i> Cart <span id="itemsCart"><?php echo (count(Yii::$app->session['cart']) > 0) ? '('.count(Yii::$app->session['cart']).')' : '(0)'; ?></span></a></li>
+								<li><a href="/cart/index"><i class="fa fa-shopping-cart"></i> Cart <span id="itemsCart"><?php echo (isset(Yii::$app->session['cart']) && count(Yii::$app->session['cart']) > 0) ? '('.count(Yii::$app->session['cart']).')' : '(0)'; ?></span></a></li>
 								<?php if (Yii::$app->user->isGuest): ?>
 									<li><a href="/site/login"><i class="fa fa-lock"></i> Login</a></li>
 								<?php endif ?>
