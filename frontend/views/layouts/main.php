@@ -8,7 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
+use yii\bootstrap\Alert;
 use yii\widgets\Menu;
 use frontend\widgets\headertopWidget;
 use frontend\widgets\headermiddleWidget;
@@ -95,7 +95,6 @@ AppAsset::register($this);
 	</header><!--/header-->
 	
 	<?= $content ?>
-
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -251,9 +250,7 @@ AppAsset::register($this);
 				</div>
 			</div>
 		</div>
-		
 	</footer><!--/Footer-->
-
 	<?php $this->endBody() ?>
 </body>
 </html>

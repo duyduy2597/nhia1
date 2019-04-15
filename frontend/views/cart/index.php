@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 $urlImage = Yii::$app->params['be'].'upload'; 
+$this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset']);
 ?>
 <?php if (count($data) > 0): ?>
 	<section id="cart_items">
@@ -49,7 +50,7 @@ $urlImage = Yii::$app->params['be'].'upload';
 									<p class="cart_total_price" id='total-item-<?php echo $key; ?>'><?php echo number_format(($product['quantity']*$product['pro_price'])); ?></p> VNĐ
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+									<a class="cart_quantity_delete" href="javascript:;" onclick='removeItemFromCart(<?php echo $key; ?>)'><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 							<?php $tongTien = $tongTien + ($product['quantity']*$product['pro_price']); ?>

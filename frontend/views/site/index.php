@@ -5,7 +5,7 @@ use frontend\widgets\recommendeditemsWidget;
 
 use yii\widgets\Breadcrumbs;
 use frontend\widgets\sliderWidget;
-use common\widgets\Alert;
+use yii\bootstrap\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
@@ -14,7 +14,6 @@ use yii\helpers\Url;
 <section id="slider">
 	<?= sliderWidget::widget(); ?>
 </section>-->
-
 <section>
 	<div class="container">
 		<div class="row">
@@ -132,11 +131,6 @@ use yii\helpers\Url;
 							</div>
 						<?php endforeach ?>	
 					</div><!--features_items-->
-					<?= recommendeditemsWidget::widget(); ?>
-					<?= Breadcrumbs::widget([
-						'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-					]) ?>
-					<?= Alert::widget()?>
 				</div>
 			</div>
 		</div>

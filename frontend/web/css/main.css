@@ -56,14 +56,23 @@ a#scrollUp {
     padding: 5px 10px;
     background: #FE980F;
     color: #FFF;
-    -webkit-animation: bounce 2s ease infinite;
-    animation: bounce 2s ease infinite;
 }
 
 a#scrollUp i {
     font-size: 30px;
 }
 
+a.notification-added-cart{
+    bottom: 42px;
+    right: 10px;
+    padding: 5px 10px;
+    background: #FE980F;
+    color: #FFF;
+}
+
+a.notification-added-cart i {
+    font-size: 30px;
+}
 
 /*************************
 *******Header CSS******
