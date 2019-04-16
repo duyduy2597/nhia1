@@ -32,7 +32,7 @@ class Supplier extends \yii\db\ActiveRecord
     {
         return [
             [['sup_name', 'mobile', 'address', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [[ 'created_at', 'updated_at'], 'integer'],
             [['sup_name', 'address'], 'string', 'max' => 255],
             [['mobile'], 'string', 'max' => 11],
         ];
@@ -48,7 +48,7 @@ class Supplier extends \yii\db\ActiveRecord
             'sup_name' => 'Sup Name',
             'mobile' => 'Mobile',
             'address' => 'Address',
-            'status' => 'Status',
+         
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

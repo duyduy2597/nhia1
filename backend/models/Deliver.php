@@ -30,7 +30,7 @@ class Deliver extends \yii\db\ActiveRecord
     {
         return [
             [['del_name', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['del_name'], 'string', 'max' => 255],
         ];
     }
@@ -43,7 +43,6 @@ class Deliver extends \yii\db\ActiveRecord
         return [
             'del_id' => 'Del ID',
             'del_name' => 'Del Name',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

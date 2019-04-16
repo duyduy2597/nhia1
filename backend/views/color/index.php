@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'color_id',
             'color_name',
-            'status',
             'created_at',
             'updated_at',
 

@@ -38,7 +38,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             //[['use_id', 'use_name', 'email', 'mobile', 'address', 'user_ship', 'mobile_ship', 'address_ship', 'request', 'updated_at', 'created_at'], 'required'],
-            [['updated_at', 'status', 'created_at'], 'integer'],
+            [['updated_at', 'created_at'], 'integer'],
             [['use_id', 'use_name', 'email', 'address', 'user_ship', 'address_ship'], 'string', 'max' => 255],
             [['mobile', 'mobile_ship', 'request'], 'string', 'max' => 11],
         ];
@@ -61,7 +61,6 @@ class Order extends \yii\db\ActiveRecord
             'address_ship' => 'Address Ship',
             'request' => 'Request',
             'updated_at' => 'Updated At',
-            'status' => 'Status',
             'created_at' => 'Created At',
         ];
     }

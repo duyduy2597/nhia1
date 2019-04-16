@@ -77,7 +77,7 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 							<li>Shipping Cost <span>Free</span></li>
 							<li>Total <span id="displayCartTotal"><?php echo number_format($tongTien).' VNĐ'; ?></span></li>
 						</ul>
-						<a class="btn btn-default check_out" href="">Check Out</a>
+						<a class="btn btn-default check_out" href="/cart/checkout">Check Out</a>
 					</div>
 				</div>
 			</div>

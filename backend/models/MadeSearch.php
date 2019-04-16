@@ -17,7 +17,7 @@ class MadeSearch extends Made
     public function rules()
     {
         return [
-            [['made_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['made_id', 'created_at', 'updated_at'], 'integer'],
             [['made_name'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class MadeSearch extends Made
         // grid filtering conditions
         $query->andFilterWhere([
             'made_id' => $this->made_id,
-            'status' => $this->status,
+            
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

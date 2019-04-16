@@ -65,12 +65,12 @@ class PaymentController extends Controller
     public function actionCreate()
     {
         $model = new Payment();
-        $time=time();
+          $time=time();
         $model->created_at=$time;
         $model ->updated_at=$time;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pay_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -90,7 +90,7 @@ class PaymentController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pay_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

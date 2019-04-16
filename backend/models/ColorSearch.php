@@ -17,7 +17,7 @@ class ColorSearch extends Color
     public function rules()
     {
         return [
-            [['color_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['color_id','created_at', 'updated_at'], 'integer'],
             [['color_name'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class ColorSearch extends Color
         // grid filtering conditions
         $query->andFilterWhere([
             'color_id' => $this->color_id,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

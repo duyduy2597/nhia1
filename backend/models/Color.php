@@ -30,7 +30,7 @@ class Color extends \yii\db\ActiveRecord
     {
         return [
             [['color_name', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['color_name'], 'string', 'max' => 255],
         ];
     }
@@ -43,7 +43,6 @@ class Color extends \yii\db\ActiveRecord
         return [
             'color_id' => 'Color ID',
             'color_name' => 'Color Name',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

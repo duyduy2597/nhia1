@@ -14,7 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'del_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->checkBox() ?>
 
    
 

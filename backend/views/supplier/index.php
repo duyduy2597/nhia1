@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'sup_name',
             'mobile',
             'address',
-            'status',
             //'created_at',
             //'updated_at',
 

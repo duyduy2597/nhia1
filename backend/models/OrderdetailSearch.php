@@ -17,7 +17,7 @@ class OrderdetailSearch extends Orderdetail
     public function rules()
     {
         return [
-            [['detail_id', 'order_id', 'pro_id', 'pro_price', 'pro_amount', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['detail_id', 'order_id', 'pro_id', 'pro_price', 'pro_amount',  'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -62,7 +62,6 @@ class OrderdetailSearch extends Orderdetail
             'pro_id' => $this->pro_id,
             'pro_price' => $this->pro_price,
             'pro_amount' => $this->pro_amount,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

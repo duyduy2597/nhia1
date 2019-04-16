@@ -102,6 +102,10 @@ class CategoryController extends Controller
             'prent_id' => 0,
         ]);
         if ($model->load(Yii::$app->request->post())) {
+            //var_dump('<pre>',$model->prent_id);die;
+             if (empty($model->prent_id)) {
+                $model->prent_id = 0;
+            }
             $model->cat_icon = UploadedFile::getInstance($model, 'cat_icon');
             if ($model->cat_icon) {
                $model->cat_icon->saveAs('upload/' . $model->cat_icon->baseName . '.' . $model->cat_icon->extension);

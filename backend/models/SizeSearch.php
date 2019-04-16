@@ -17,7 +17,7 @@ class SizeSearch extends Size
     public function rules()
     {
         return [
-            [['size_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['size_id',  'created_at', 'updated_at'], 'integer'],
             [['size_name'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class SizeSearch extends Size
         // grid filtering conditions
         $query->andFilterWhere([
             'size_id' => $this->size_id,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

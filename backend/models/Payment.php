@@ -7,11 +7,14 @@ use Yii;
 /**
  * This is the model class for table "payment".
  *
- * @property int $pay_id
- * @property string $pay_name
- * @property int $status
+ * @property int $id
+ * @property string $payment_id
+ * @property int $order_id
  * @property int $created_at
  * @property int $updated_at
+ * @property int $isDeleted
+ * @property int $deletedUserId
+ * @property int $deletedTime
  */
 class Payment extends \yii\db\ActiveRecord
 {
@@ -29,9 +32,9 @@ class Payment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pay_name', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
-            [['pay_name'], 'string', 'max' => 255],
+            [['payment_id', 'created_at', 'updated_at'], 'required'],
+            [['order_id', 'created_at', 'updated_at', 'isDeleted', 'deletedUserId', 'deletedTime'], 'integer'],
+            [['payment_id'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,11 +44,14 @@ class Payment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pay_id' => 'Pay ID',
-            'pay_name' => 'Pay Name',
-            'status' => 'Status',
+            'id' => 'ID',
+            'payment_id' => 'Payment ID',
+            'order_id' => 'Order ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'isDeleted' => 'Is Deleted',
+            'deletedUserId' => 'Deleted User ID',
+            'deletedTime' => 'Deleted Time',
         ];
     }
 }

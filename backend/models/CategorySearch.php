@@ -17,7 +17,7 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['cat_id', 'prent_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['cat_id', 'prent_id', 'created_at', 'updated_at'], 'integer'],
             [['cat_name', 'cat_icon', 'meta_keyword', 'meta_description'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class CategorySearch extends Category
         $query->andFilterWhere([
             'cat_id' => $this->cat_id,
             'prent_id' => $this->prent_id,
-            'status' => $this->status,
+            // 'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

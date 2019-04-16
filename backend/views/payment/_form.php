@@ -12,11 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'pay_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'payment_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->checkBox() ?>
+    <?= $form->field($model, 'order_id')->textInput() ?>
 
-    
+    <?= $form->field($model, 'isDeleted')->textInput() ?>
+
+    <?= $form->field($model, 'deletedUserId')->textInput() ?>
+
+    <?= $form->field($model, 'deletedTime')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

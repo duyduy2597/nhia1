@@ -14,10 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'made_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->checkBox() ?>
-
-  
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

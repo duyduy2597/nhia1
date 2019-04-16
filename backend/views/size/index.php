@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'size_id',
             'size_name',
-            'status',
             'created_at',
             'updated_at',
 

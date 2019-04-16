@@ -17,7 +17,7 @@ class SupplierSearch extends Supplier
     public function rules()
     {
         return [
-            [['sup_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['sup_id',  'created_at', 'updated_at'], 'integer'],
             [['sup_name', 'mobile', 'address'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class SupplierSearch extends Supplier
         // grid filtering conditions
         $query->andFilterWhere([
             'sup_id' => $this->sup_id,
-            'status' => $this->status,
+            
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'cat_id',
             'cat_name',
             'prent_id',
-            'cat_icon',
+            //'cat_icon',
             'meta_keyword',
             //'meta_description',
             //'status',

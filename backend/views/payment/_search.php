@@ -15,15 +15,21 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'pay_id') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'pay_name') ?>
+    <?= $form->field($model, 'payment_id') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?= $form->field($model, 'order_id') ?>
 
     <?= $form->field($model, 'created_at') ?>
 
     <?= $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'isDeleted') ?>
+
+    <?php // echo $form->field($model, 'deletedUserId') ?>
+
+    <?php // echo $form->field($model, 'deletedTime') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -17,8 +17,8 @@ class PaymentSearch extends Payment
     public function rules()
     {
         return [
-            [['pay_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['pay_name'], 'safe'],
+            [['id', 'order_id', 'created_at', 'updated_at', 'isDeleted', 'deletedUserId', 'deletedTime'], 'integer'],
+            [['payment_id'], 'safe'],
         ];
     }
 
@@ -58,13 +58,16 @@ class PaymentSearch extends Payment
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'pay_id' => $this->pay_id,
-            'status' => $this->status,
+            'id' => $this->id,
+            'order_id' => $this->order_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'isDeleted' => $this->isDeleted,
+            'deletedUserId' => $this->deletedUserId,
+            'deletedTime' => $this->deletedTime,
         ]);
 
-        $query->andFilterWhere(['like', 'pay_name', $this->pay_name]);
+        $query->andFilterWhere(['like', 'payment_id', $this->payment_id]);
 
         return $dataProvider;
     }

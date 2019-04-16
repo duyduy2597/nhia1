@@ -14,8 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'color_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->checkBox() ?>
-
     
 
     <div class="form-group">

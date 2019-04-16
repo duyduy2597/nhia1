@@ -52,7 +52,7 @@ class Category extends ActiveRecord
             'cat_id' => 'Cat ID',
             'cat_name' => 'Cat Name',
             'prent_id' => 'Prent ID',
-            'cat_icon' => 'Thumbnail',
+            //'cat_icon' => 'Thumbnail',
             'meta_keyword' => 'Meta Keyword',
             'meta_description' => 'Meta Description',
             'created_at' => 'Created At',

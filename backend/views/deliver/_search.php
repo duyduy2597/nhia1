@@ -19,7 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'del_name') ?>
 
-    <?= $form->field($model, 'status') ?>
 
     <?= $form->field($model, 'created_at') ?>
 

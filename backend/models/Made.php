@@ -30,7 +30,7 @@ class Made extends \yii\db\ActiveRecord
     {
         return [
             [['made_name', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [[ 'created_at', 'updated_at'], 'integer'],
             [['made_name'], 'string', 'max' => 255],
         ];
     }
@@ -43,7 +43,7 @@ class Made extends \yii\db\ActiveRecord
         return [
             'made_id' => 'Made ID',
             'made_name' => 'Made Name',
-            'status' => 'Status',
+            
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

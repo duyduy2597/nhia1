@@ -35,12 +35,6 @@ use backend\models\User;
 
     <?= $form->field($model, 'request')->textInput(['maxlength' => true]) ?>
 
-    
-
-    <?= $form->field($model, 'status')->checkBox() ?>
-
-   
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

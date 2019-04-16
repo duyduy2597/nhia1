@@ -13,6 +13,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use backend\models\Product;
+use frontend\models\CheckoutForm;
 
 /**
  * Site controller
@@ -117,5 +118,20 @@ class CartController extends Controller
         }
         echo number_format($totalCart).' VNĐ';
         die;
+    }
+
+    public function actionCheckout()
+    {
+        $session = Yii::$app->session;
+        $model  = new CheckoutForm();
+        $currentData = $session['cart'];
+        if (!isset($currentData) || count($session['cart']) <= 0) {
+            $this->redirect(array('/site/index')); 
+        }else{
+            return $this->render('checkout',[
+                'data' => $currentData,
+                'model' => $model
+            ]);
+        }
     }
 }

@@ -32,7 +32,7 @@ class Orderdetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'pro_id', 'pro_price', 'pro_amount', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['order_id', 'pro_id', 'pro_price', 'pro_amount',  'created_at', 'updated_at'], 'integer'],
             [['created_at', 'updated_at'], 'required'],
         ];
     }
@@ -48,7 +48,6 @@ class Orderdetail extends \yii\db\ActiveRecord
             'pro_id' => 'Pro ID',
             'pro_price' => 'Pro Price',
             'pro_amount' => 'Pro Amount',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

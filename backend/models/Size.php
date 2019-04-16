@@ -30,7 +30,7 @@ class Size extends \yii\db\ActiveRecord
     {
         return [
             [['size_name', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [[ 'created_at', 'updated_at'], 'integer'],
             [['size_name'], 'string', 'max' => 255],
         ];
     }
@@ -43,7 +43,6 @@ class Size extends \yii\db\ActiveRecord
         return [
             'size_id' => 'Size ID',
             'size_name' => 'Size Name',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
