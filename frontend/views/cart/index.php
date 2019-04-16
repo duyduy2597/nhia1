@@ -55,6 +55,13 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 							</tr>
 							<?php $tongTien = $tongTien + ($product['quantity']*$product['pro_price']); ?>
 						<?php endforeach ?>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>						
+							<td><b>Total:</b> <span id="displayCartTotal"><?php echo number_format($tongTien).' VNĐ'; ?></span></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -75,9 +82,9 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 							<li>Cart Sub Total <span>Free</span></li>
 							<li>Eco Tax <span>Free</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span id="displayCartTotal"><?php echo number_format($tongTien).' VNĐ'; ?></span></li>
+							<li>Total</li>
 						</ul>
-						<a class="btn btn-default check_out" href="/cart/checkout">Check Out</a>
+						<a class="btn btn-default check_out" href="/cart/checkout-type">Check Out</a>
 					</div>
 				</div>
 			</div>

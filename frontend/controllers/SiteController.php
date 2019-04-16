@@ -110,14 +110,16 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
+    public function actionLogin($isCheckout = false)
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest && $isCheckout == false) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if ($isCheckout == true) {
+                return $this->redirect('/cart/review-confirm');
+            }
             return $this->goBack();
         } else {
             $model->password = '';

@@ -12,6 +12,7 @@ class CheckoutForm extends Model
     public $address;
     public $phone;
     public $cmnd;
+    public $email;
    // public $
 
 
@@ -24,12 +25,13 @@ class CheckoutForm extends Model
             ['address', 'required'],
             ['cmnd', 'required'],
             ['phone', 'required'],
-            ['address', 'string', 'min' => 10, 'max' => 255],
+            ['email', 'required'],
+            ['address', 'string', 'min' => 8, 'max' => 255],
             ['cmnd', 'string', 'min' => 9, 'max' => 12],
             
-            // ['email', 'trim'],          
-            // ['email', 'email'],
-            // ['email', 'string', 'max' => 255],
+             ['email', 'trim'],          
+             ['email', 'email'],
+             ['email', 'string', 'max' => 255],
             // ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
         ];
     }
@@ -40,6 +42,7 @@ class CheckoutForm extends Model
             'address' => 'Địa chỉ người nhận',
             'phone' => 'Số điện thoại người nhận',
             'cmnd' => 'Số chứng minh thư',
+            'email' => 'Email'
         ];
     }
 

@@ -82,7 +82,7 @@ AppAsset::register($this);
 									<li><a href="/site/login"><i class="fa fa-lock"></i> Login</a></li>
 								<?php endif ?>
 								<?php if (!Yii::$app->user->isGuest): ?>
-									<li><a href="site/logout" data-method='post'><i class="fa fa-sign-out"></i> Logout</a></li>
+									<li><a href="/site/logout" data-method='post'><i class="fa fa-sign-out"></i> Logout</a></li>
 								<?php endif ?>
 							</ul>
 						</div>

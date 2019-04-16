@@ -14,6 +14,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use backend\models\Product;
 use frontend\models\CheckoutForm;
+use frontend\models\mysql\Order;
 
 /**
  * Site controller
@@ -120,7 +121,7 @@ class CartController extends Controller
         die;
     }
 
-    public function actionCheckout()
+    public function actionCheckoutType()
     {
         $session = Yii::$app->session;
         $model  = new CheckoutForm();
@@ -128,10 +129,108 @@ class CartController extends Controller
         if (!isset($currentData) || count($session['cart']) <= 0) {
             $this->redirect(array('/site/index')); 
         }else{
+
+            if ($model->load(Yii::$app->request->post())) {
+             var_dump($model);
+             die;
+            //    $order = new Order();
+            //    $details = [
+            //     'buyer' => [
+            //         'userId' => 0,
+            //         'email' => $model->email,
+            //         'username' => '',
+            //         'cmnd' => $model->cmnd,
+            //         'phone' => $model->phone,
+            //         'address' => $model->address,
+            //         'attributes' => null,
+            //         'isGuest' => true,
+            //     ],
+            //     'details' => $currentData
+            // ];
+            // $order->use_id = 0;
+            // $order->details = json_encode($details);
+            // $order->status = 1;
+            // $order->email = $model->email;
+            // $order->use_name = '';
+            // $order->mobile = $model->phone;
+            // $order->address = $model->address;
+            // $order->user_ship = '';
+            // $order->mobile_ship = '';
+            // $order->address_ship = '';
+            // $order->request = '';
+            // $order->isDeleted = '';
+            // $order->deletedUserId = 0;
+            // $order->deletedTime = 0;
+            // if ($order->save()) {
+            //     return $this->redirect(['/order-detail/index', 'orderId' => $order->order_id]);
+            // }
+         } else {
             return $this->render('checkout',[
                 'data' => $currentData,
                 'model' => $model
             ]);
         }
     }
+}
+
+public function actionReviewConfirm()
+{
+    $session = Yii::$app->session;
+    $model  = new CheckoutForm();
+    $buyer = Yii::$app->user->identity;
+    $currentData = $session['cart'];
+    if (!isset($currentData) || count($session['cart']) <= 0) {
+        $this->redirect(array('/site/index')); 
+    }else{
+        return $this->render('reviewconfirm',[
+         'data' => $currentData,
+         'buyer' => $buyer
+     ]);
+    }
+}
+
+public function actionAfterConfirm()
+{
+    $session = Yii::$app->session;
+    $model  = new CheckoutForm();
+    $buyer = Yii::$app->user->identity;
+    $currentData = $session['cart'];
+    if (!isset($currentData) || count($session['cart']) <= 0) {
+       return $this->redirect(array('/site/index')); 
+    }else{
+        if (!Yii::$app->user->isGuest) {    
+            $order = new Order();
+            $details = [
+                'buyer' => [
+                    'userId' => $buyer['id'],
+                    'email' => $buyer['email'],
+                    'username' => $buyer['username'],
+                    'cmnd' => $buyer['cmnd'],
+                    'phone' => 1234567,
+                    'address' => 'Long an',
+                    'attributes' => $buyer['attributes'],
+                ],
+                'details' => $currentData
+            ];
+            $order->use_id = $buyer['id'];
+            $order->details = json_encode($details);
+            $order->status = 1;
+            $order->email = $buyer['email'];
+            $order->use_name = $buyer['username'];
+            $order->mobile = 123456;
+            $order->address = '';
+            $order->user_ship = '';
+            $order->mobile_ship = '';
+            $order->address_ship = '';
+            $order->request = '';
+            $order->isDeleted = '';
+            $order->deletedUserId = 0;
+            $order->deletedTime = 0;
+            if ($order->save()) {
+                return $this->redirect(['/order-detail/index', 'orderId' => $order->order_id]);
+            }
+        }
+    }
+}
+
 }

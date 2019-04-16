@@ -4,65 +4,50 @@ use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 $urlImage = Yii::$app->params['be'].'upload'; 
 $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset']);
+$this->title = 'Xác nhận thanh toán';
 ?>
 <div class="container">
+	<div class="breadcrumbs">
+		<ol class="breadcrumb">
+			<li><a href="/">Home</a></li>
+			<li class="active"><?php echo $this->title; ?></li>
+		</ol>
+	</div>
 	<div class="row">
 		<div class="col-sm-3">
-			<h2>Checkout $</h2>
+			<h2>REVIEW</h2>
 		</div>
 	</div>
 	<div class="row">
 		<div class="category-tab"><!--category-tab-->
 			<div class="col-sm-12">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#paypal" data-toggle="tab">PAYPAL</a></li>
-					<?php if (Yii::$app->user->isGuest): ?>
-						<li><a href="#tienMat" data-toggle="tab">TIỀN MẶT</a></li>
-					<?php endif ?>
+					<li class="active"><a href="#userInfor" data-toggle="tab">THÔNG TIN NGƯỜI NHẬN</a></li>
 					<li><a href="#cart" data-toggle="tab">CART</a></li>
 				</ul>
 			</div>
 			<div class="tab-content">
-				<div class="tab-pane fade active in" id="paypal" >
-					<div class="col-sm-6 col-sm-offset-3">
-						<div class="signup-form"><!--sign up form-->
-							<h2>New User Signup!</h2>
-							<form action="#">
-								<input type="text" placeholder="Name"/>
-								<input type="email" placeholder="Email Address"/>
-								<input type="password" placeholder="Password"/>
-								<button type="submit" class="btn btn-default">Signup</button>
-							</form>
+				<div class="tab-pane fade active in" id="userInfor" >
+					<div class="col-sm-6">
+						<div class="panel panel-default">
+							<!-- Default panel contents -->
+							<div class="panel-heading">THÔNG TIN NGƯỜI NHẬN</div>
+							<div class="panel-body">
+								<ul class="list-group">
+									<li class="list-group-item"><b>Họ tên:</b> <?php echo $buyer['username']; ?></li>
+									<li class="list-group-item"><b>Số chứng minh:</b> <?php echo $buyer['cmnd']; ?></li>
+									<li class="list-group-item"><b>Email:</b> <?php echo $buyer['email']; ?></li>
+									<li class="list-group-item"><b>Địa chỉ:</b> Long an</li>
+								</ul>								
+							</div>
+							<div class="panel-footer">			
+								<?php echo Html::a('Xác nhận',Url::to(['/cart/after-confirm']),[
+									'class' => 'btn btn-default check_out'
+								]); ?>
+							</div>
 						</div>
 					</div>
 				</div>
-				
-				<?php if (Yii::$app->user->isGuest): ?>
-					<div class="tab-pane fade" id="tienMat" >
-						<div class="col-sm-6 col-sm-offset-3">
-							<div class="login-form">
-								<!--login form-->
-								<h2>THÔNG TIN NGƯỜI NHẬN</h2>
-								<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-
-								<?= $form->field($model, 'address')->textInput(['autofocus' => true,'placeholder' => 'address']) ?>
-
-								<?= $form->field($model, 'phone')->textInput(['autofocus' => true,'placeholder' => 'phone']) ?>
-								
-								<?= $form->field($model, 'cmnd')->textInput(['autofocus' => true,'placeholder' => 'cmnd']) ?>
-								
-								<?= $form->field($model, 'email')->textInput(['autofocus' => true,'placeholder' => 'Email']) ?>
-								<div class="form-group">
-									<?php echo Html::a('Dùng thông tin đăng nhập ?',Url::to(['/site/login','isCheckout' => true])); ?>
-									<?= Html::submitButton('Submit', ['class' => 'btn btn-default',]) ?>
-								</div>
-
-								<?php ActiveForm::end(); ?>
-							</div><!--/login form-->
-						</div>
-					</div>
-				<?php endif ?>
-
 				<div class="tab-pane fade" id="cart">
 					<div class="table-responsive cart_info">
 						<table class="table table-condensed table-responsive">
