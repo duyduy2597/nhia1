@@ -16,9 +16,7 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 			<div class="col-sm-12">
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#paypal" data-toggle="tab">PAYPAL</a></li>
-					<?php if (Yii::$app->user->isGuest): ?>
-						<li><a href="#tienMat" data-toggle="tab">TIỀN MẶT</a></li>
-					<?php endif ?>
+					<li><a href="#tienMat" data-toggle="tab">TIỀN MẶT</a></li>					
 					<li><a href="#cart" data-toggle="tab">CART</a></li>
 				</ul>
 			</div>
@@ -36,33 +34,32 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 						</div>
 					</div>
 				</div>
-				
-				<?php if (Yii::$app->user->isGuest): ?>
-					<div class="tab-pane fade" id="tienMat" >
-						<div class="col-sm-6 col-sm-offset-3">
-							<div class="login-form">
-								<!--login form-->
-								<h2>THÔNG TIN NGƯỜI NHẬN</h2>
-								<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-								<?= $form->field($model, 'address')->textInput(['autofocus' => true,'placeholder' => 'address']) ?>
+				<div class="tab-pane fade" id="tienMat" >
+					<div class="col-sm-6 col-sm-offset-3">
+						<div class="login-form">
+							<!--login form-->
+							<h2>THÔNG TIN NGƯỜI NHẬN</h2>
+							<?php $form = ActiveForm::begin(['id' => 'checkout-form']); ?>
 
-								<?= $form->field($model, 'phone')->textInput(['autofocus' => true,'placeholder' => 'phone']) ?>
-								
+							<?= $form->field($model, 'address')->textInput(['autofocus' => true,'placeholder' => 'address']) ?>
+
+							<?= $form->field($model, 'phone')->textInput(['autofocus' => true,'placeholder' => 'phone']) ?>
+							<?php if (Yii::$app->user->isGuest): ?>
 								<?= $form->field($model, 'cmnd')->textInput(['autofocus' => true,'placeholder' => 'cmnd']) ?>
-								
+
 								<?= $form->field($model, 'email')->textInput(['autofocus' => true,'placeholder' => 'Email']) ?>
-								<div class="form-group">
-									<?php echo Html::a('Dùng thông tin đăng nhập ?',Url::to(['/site/login','isCheckout' => true])); ?>
-									<?= Html::submitButton('Submit', ['class' => 'btn btn-default',]) ?>
-								</div>
+							<?php endif ?>
 
-								<?php ActiveForm::end(); ?>
-							</div><!--/login form-->
-						</div>
+							<div class="form-group">			
+								<?= Html::submitButton('Submit', ['class' => 'btn btn-default',]) ?>
+							</div>
+
+							<?php ActiveForm::end(); ?>
+						</div><!--/login form-->
 					</div>
-				<?php endif ?>
-
+				</div>
+				
 				<div class="tab-pane fade" id="cart">
 					<div class="table-responsive cart_info">
 						<table class="table table-condensed table-responsive">

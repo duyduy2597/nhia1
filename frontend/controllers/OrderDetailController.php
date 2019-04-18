@@ -22,22 +22,22 @@ class OrderDetailController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index',],
-                'rules' => [
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         'access' => [
+    //             'class' => AccessControl::className(),
+    //             'only' => ['index',],
+    //             'rules' => [
+    //                 [
+    //                     'actions' => ['index'],
+    //                     'allow' => true,
+    //                     'roles' => ['@'],
+    //                 ],
+    //             ],
+    //         ],
+    //     ];
+    // }
 
     /**
      * {@inheritdoc}
@@ -60,17 +60,18 @@ class OrderDetailController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex($orderId)
+    public function actionIndex($orderId,$cmnd)
     {
         $session = Yii::$app->session;
         $session['cart'] = [];
-        $order = Order::findOne($orderId);
-        if ($order['use_id'] != Yii::$app->user->identity->id) {
+        $order = Order::findOne([
+            'order_id' => $orderId,'cmnd' => $cmnd]);
+        if (is_null($order)) {
             return $this->redirect(array('/site/index')); 
         }
         return $this->render('index',[
            'data' => $session['cart'],
-           'orderDetail' => $order->attributes
+           'orderDetail' => $order
        ]);
     }
 

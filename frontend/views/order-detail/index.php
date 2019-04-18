@@ -3,7 +3,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\mysql\Order;
 $urlImage = Yii::$app->params['be'].'upload'; 
-$detail = json_decode($orderDetail['details'],true);
+$detail = $orderDetail->attributes; 
+$detail = json_decode($detail['details'],true);
 //var_dump($orderDetail);die; 
 ?>
 
@@ -93,7 +94,10 @@ $detail = json_decode($orderDetail['details'],true);
 							<td></td>
 							<td></td>
 							<td></td>						
-							<td><?php echo Html::a('Hủy đơn',Url::to(['/order-detail/cancel-order','orderId' => $orderDetail['order_id']]),[
+							<td><?php echo Html::a('Hủy đơn',Url::to(['/site/login','cancel' => json_encode([
+								'order_id' => $orderDetail->order_id,
+								'cmnd' => $orderDetail->cmnd
+							])]),[
 								'class' => 'btn btn-default check_out'
 								]); ?></td>
 							</tr>

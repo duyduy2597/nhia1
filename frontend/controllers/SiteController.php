@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -13,6 +14,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use backend\models\Product;
+use frontend\models\mysql\Order;
 
 /**
  * Site controller
@@ -110,15 +112,28 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin($isCheckout = false)
+    public function actionLogin($cancel = false)
     {
-        if (!Yii::$app->user->isGuest && $isCheckout == false) {
+        if (!Yii::$app->user->isGuest && $cancel == false) {
             return $this->goHome();
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if ($isCheckout == true) {
-                return $this->redirect('/cart/review-confirm');
+            if ($cancel != false) {
+                $dataCancel = json_decode($cancel,true);
+                if (Yii::$app->user->identity->cmnd == $dataCancel['cmnd']) {
+                    $order = Order::findOne($dataCancel['order_id']);
+                    var_dump($order);die;
+                    $order->status = 0;
+                    if ($order->save()) {
+                        return $this->redirect(['/order-detail/index',
+                         'orderId' => $orderId,
+                         'cmnd' => $dataCancel['cmnd']
+                     ]);
+                    }
+                }else{
+                    throw new ForbiddenHttpException('Bạn không được quyền thực hiện hành động này, ok!');
+                }
             }
             return $this->goBack();
         } else {

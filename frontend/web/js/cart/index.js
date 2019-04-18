@@ -50,8 +50,12 @@ function removeItemFromCart(id) {
             id : id
         },
         success : function (result){
+            if (result == 0) {
+                location.reload();
+            }else{
                 $('#cart-item-'+id+'').remove();
                 $("#displayCartTotal").html(result);
+            }
         }
     });
 }

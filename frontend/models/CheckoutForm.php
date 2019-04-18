@@ -26,6 +26,7 @@ class CheckoutForm extends Model
             ['cmnd', 'required'],
             ['phone', 'required'],
             ['email', 'required'],
+            [['phone'], 'integer'],
             ['address', 'string', 'min' => 8, 'max' => 255],
             ['cmnd', 'string', 'min' => 9, 'max' => 12],
             
