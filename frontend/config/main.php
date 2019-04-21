@@ -20,6 +20,18 @@ return [
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
+        // 'mailer' => [
+        //     'class' => 'yii\swiftmailer\Mailer',
+        //     'transport' => [
+        //         'class' => 'Swift_SmtpTransport',
+        //         'host' => 'smtp.gmail.com',
+        //         'username' => 'nhkkin76@gmail.com',
+        //         'password' => 'xxxxxxx',
+        //         'port' => '587',
+        //         'encryption' => 'tls',    
+        //     ],
+        //     'useFileTransport' => false,
+        // ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',

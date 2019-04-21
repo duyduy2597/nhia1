@@ -139,9 +139,7 @@ public function actionCheckoutType()
     }else{
         $buyer = Yii::$app->user->identity;
         if ($model->load(Yii::$app->request->post())) {
-         // var_dump('<pre>',$model);
-         // die;
-           $details = [
+          $details = [
             'buyer' => [
                 'userId' => !is_null($buyer) ? $buyer['id'] : null,
                 'email' => !is_null($buyer) ? $buyer['email'] : $model->email,
@@ -152,7 +150,7 @@ public function actionCheckoutType()
                 'attributes' => !is_null($buyer) ? $buyer['attributes'] : '',
             ],
             'details' => $currentData
-        ];
+        ];      
         $order = new Order();
         $order->use_id = !is_null($buyer) ? $buyer['id'] : 0;
         $order->details = json_encode($details);
@@ -166,17 +164,26 @@ public function actionCheckoutType()
         $order->address_ship = '';
         $order->request = '';
         $order->cmnd = !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd;
+        $secretKey = rand(10000,1000000);
+        $order->secretkey  = Yii::$app->security->generatePasswordHash($secretKey);
         if ($order->save()) {
-            return $this->redirect(['/order-detail/index',
-               'orderId' => $order->order_id,
-               'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
-        }
-    } else {
-        return $this->render('checkout',[
-            'data' => $currentData,
-            'model' => $model
-        ]);
-    }
+         Yii::$app->mailer->compose()
+         ->setFrom(Yii::$app->params['adminEmail'])
+         ->setTo($order->email)
+         ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
+         ->setTextBody('abc')
+         ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
+         ->send();
+         return $this->redirect(['/order-detail/index',
+           'orderId' => $order->order_id,
+           'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
+     }
+ } else {
+    return $this->render('checkout',[
+        'data' => $currentData,
+        'model' => $model
+    ]);
+}
 }
 }
 

@@ -1,6 +1,5 @@
 <?php
 namespace frontend\controllers;
-
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -38,7 +37,6 @@ class OrderDetailController extends Controller
     //         ],
     //     ];
     // }
-
     /**
      * {@inheritdoc}
      */
@@ -54,14 +52,13 @@ class OrderDetailController extends Controller
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
      * @return mixed
      */
     public function actionIndex($orderId,$cmnd)
-    {
+    {   
         $session = Yii::$app->session;
         $session['cart'] = [];
         $order = Order::findOne([
@@ -70,11 +67,10 @@ class OrderDetailController extends Controller
             return $this->redirect(array('/site/index')); 
         }
         return $this->render('index',[
-           'data' => $session['cart'],
-           'orderDetail' => $order
-       ]);
+         'data' => $session['cart'],
+         'orderDetail' => $order
+     ]);
     }
-
     public function actionCancelOrder($orderId)
     {
         $order = Order::findOne($orderId);
@@ -87,5 +83,4 @@ class OrderDetailController extends Controller
             throw new BadRequestHttpException('Đầu vào không hợp lệ !');
         }
     }
-
 }

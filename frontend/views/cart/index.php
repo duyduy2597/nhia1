@@ -68,29 +68,15 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 		</div>
 	</section> 
 	<!--/#cart_items-->
-
-
 	<section id="do_action">
 		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-			</div>
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span>Free</span></li>
-							<li>Eco Tax <span>Free</span></li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total</li>
-						</ul>
-						<a class="btn btn-default check_out" href="/cart/checkout-type">Check Out</a>
-					</div>
+				<div class="col-sm-3 col-sm-offset-10">
+					<a class="btn btn-default check_out" href="/cart/checkout-type">Check Out</a>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!--/#do_action-->
 	<?php else: ?>
 		<section>
 			<div class="container">

@@ -1,5 +1,5 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'nhkkin76@gmail.com',
     'homeUrl' => 'site/index'
 ];
