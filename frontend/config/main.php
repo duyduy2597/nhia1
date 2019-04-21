@@ -32,6 +32,10 @@ return [
         //     ],
         //     'useFileTransport' => false,
         // ],
+        'PayPalRestApi'=>[
+            'class'=>'bitcko\paypalrestapi\PayPalRestApi',
+            'redirectUrl'=>'/payment/payment-success', // Redirect Url after payment
+        ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',

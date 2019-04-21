@@ -57,15 +57,15 @@ class CartController extends Controller
         $session = Yii::$app->session;
         $data = $session['cart'];
         if (is_null($data)) {
-         return $this->redirect(array('/'));
-     }
-     return $this->render('index',[
-         'data' => $data
-     ]);
- }
+           return $this->redirect(array('/'));
+       }
+       return $this->render('index',[
+           'data' => $data
+       ]);
+   }
 
- public function actionAddToCart()
- {
+   public function actionAddToCart()
+   {
     $data = $_POST['data'];
     $session = Yii::$app->session;
       // $session->destroy();die;
@@ -167,18 +167,18 @@ public function actionCheckoutType()
         $secretKey = rand(10000,1000000);
         $order->secretkey  = Yii::$app->security->generatePasswordHash($secretKey);
         if ($order->save()) {
-         Yii::$app->mailer->compose()
-         ->setFrom(Yii::$app->params['adminEmail'])
-         ->setTo($order->email)
-         ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
-         ->setTextBody('abc')
-         ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
-         ->send();
-         return $this->redirect(['/order-detail/index',
-           'orderId' => $order->order_id,
-           'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
-     }
- } else {
+           Yii::$app->mailer->compose()
+           ->setFrom(Yii::$app->params['adminEmail'])
+           ->setTo($order->email)
+           ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
+           ->setTextBody('abc')
+           ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
+           ->send();
+           return $this->redirect(['/order-detail/index',
+             'orderId' => $order->order_id,
+             'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
+       }
+   } else {
     return $this->render('checkout',[
         'data' => $currentData,
         'model' => $model
@@ -197,9 +197,9 @@ public function actionReviewConfirm()
         $this->redirect(array('/site/index')); 
     }else{
         return $this->render('reviewconfirm',[
-           'data' => $currentData,
-           'buyer' => $buyer
-       ]);
+         'data' => $currentData,
+         'buyer' => $buyer
+     ]);
     }
 }
 
@@ -210,8 +210,8 @@ public function actionAfterConfirm()
     $buyer = Yii::$app->user->identity;
     $currentData = $session['cart'];
     if (!isset($currentData) || count($session['cart']) <= 0) {
-     return $this->redirect(array('/site/index')); 
- }else{
+       return $this->redirect(array('/site/index')); 
+   }else{
     if (!Yii::$app->user->isGuest) {    
         $order = new Order();
         $details = [
