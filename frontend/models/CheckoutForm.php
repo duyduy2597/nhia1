@@ -8,13 +8,13 @@ use common\models\User;
  * Signup form
  */
 class CheckoutForm extends Model
-{
+{   
+
     public $address;
     public $phone;
     public $cmnd;
     public $email;
-   // public $
-
+    public $checkoutType;
 
     /**
      * {@inheritdoc}
@@ -26,13 +26,14 @@ class CheckoutForm extends Model
             ['cmnd', 'required'],
             ['phone', 'required'],
             ['email', 'required'],
+            ['checkoutType', 'required'],
             [['phone'], 'integer'],
             ['address', 'string', 'min' => 8, 'max' => 255],
             ['cmnd', 'string', 'min' => 9, 'max' => 12],
             
-             ['email', 'trim'],          
-             ['email', 'email'],
-             ['email', 'string', 'max' => 255],
+            ['email', 'trim'],          
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
             // ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
         ];
     }

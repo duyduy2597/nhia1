@@ -7,35 +7,15 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 ?>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-3">
-			<h2>Checkout $</h2>
-		</div>
-	</div>
-	<div class="row">
 		<div class="category-tab"><!--category-tab-->
 			<div class="col-sm-12">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#paypal" data-toggle="tab">PAYPAL</a></li>
-					<li><a href="#tienMat" data-toggle="tab">TIỀN MẶT</a></li>					
+					<li class="active"><a href="#checkout" data-toggle="tab">Checkout $</a></li>					
 					<li><a href="#cart" data-toggle="tab">CART</a></li>
 				</ul>
 			</div>
 			<div class="tab-content">
-				<div class="tab-pane fade active in" id="paypal" >
-					<div class="col-sm-6 col-sm-offset-3">
-						<div class="signup-form"><!--sign up form-->
-							<h2>New User Signup!</h2>
-							<form action="#">
-								<input type="text" placeholder="Name"/>
-								<input type="email" placeholder="Email Address"/>
-								<input type="password" placeholder="Password"/>
-								<button type="submit" class="btn btn-default">Signup</button>
-							</form>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="tienMat" >
+				<div class="tab-pane fade active in" id="checkout" >
 					<div class="col-sm-6 col-sm-offset-3">
 						<div class="login-form">
 							<!--login form-->
@@ -50,7 +30,10 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 
 								<?= $form->field($model, 'email')->textInput(['autofocus' => true,'placeholder' => 'Email']) ?>
 							<?php endif ?>
-
+							<?php echo $form->field($model, 'checkoutType')->dropDownList(
+								Yii::$app->params['checkoutType'],
+								['prompt'=>'Chọn loại thanh toán']
+							); ?>
 							<div class="form-group">			
 								<?= Html::submitButton('Submit', ['class' => 'btn btn-default',]) ?>
 							</div>
@@ -59,6 +42,7 @@ $this->registerJsFile("@web/js/cart/index.js",['depends' => 'yii\web\JqueryAsset
 						</div><!--/login form-->
 					</div>
 				</div>
+				
 				
 				<div class="tab-pane fade" id="cart">
 					<div class="table-responsive cart_info">

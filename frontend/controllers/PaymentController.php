@@ -26,7 +26,7 @@ class PaymentController extends Controller
     {
         $session = Yii::$app->session;
         $cart = $session['cart'];
-        if (!isset($cart) || count($session['cart']) <= 0) {
+        if (!isset($cart) || count($cart) <= 0) {
             return $this->redirect(array('/site/index')); 
         }else{
             $items = [];
@@ -55,6 +55,7 @@ class PaymentController extends Controller
                 ]
             ];
             Yii::$app->session['order-paypal'] = $params['order'];
+            Yii::$app->session['order-total-price'] = $totalPriceCart;
             Yii::$app->PayPalRestApi->checkOut($params);
         }
     }
@@ -65,10 +66,18 @@ class PaymentController extends Controller
             'order' => Yii::$app->session['order-paypal']
         ];
         Yii::$app->PayPalRestApi->processPayment($params);
+        $orderModel = new Order();
         $data = Yii::$app->session['cart'];
-        Yii::$app->session->destroy();
-        return $this->render('payment-success',[
-           'data' => $data,
-       ]);
+        $model = Yii::$app->session['order-user-info'];
+        $check = $orderModel->createOrder($model,$data,Yii::$app->session['order-total-price'].' USD');
+        if ($check['status'] == true) {
+            $buyer = Yii::$app->user->identity;
+            Yii::$app->session->destroy();
+            return $this->redirect(['/order-detail/index', 
+                'orderId' => $check['order']['order_id'],
+                'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd]);
+        }else{
+            return $this->redirect('/');
+        }
     }
 }

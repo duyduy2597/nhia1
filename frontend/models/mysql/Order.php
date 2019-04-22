@@ -84,4 +84,51 @@ class Order extends ActiveRecord
     //         'created_at' => 'Created At',
     //     ];
     // }
+    public function createOrder($model,$currentData,$total = "")
+    {
+        $buyer = Yii::$app->user->identity;
+        $details = [
+            'buyer' => [
+                'userId' => !is_null($buyer) ? $buyer['id'] : null,
+                'email' => !is_null($buyer) ? $buyer['email'] : $model->email,
+                'username' => null,
+                'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd,
+                'phone' => $model->phone,
+                'address' => $model->address,
+                'attributes' => !is_null($buyer) ? $buyer['attributes'] : '',
+            ],
+            'details' => $currentData,
+            'type' => Yii::$app->params['checkoutType'][$model->checkoutType],
+            'totalPrice' => $total
+        ];      
+        $order = new Order();
+        $order->use_id = !is_null($buyer) ? $buyer['id'] : 0;
+        $order->details = json_encode($details);
+        $order->status = 1;
+        $order->email = !is_null($buyer) ? $buyer['email'] : $model->email;
+        $order->use_name = '';
+        $order->mobile = $model->phone;
+        $order->address = $model->address;
+        $order->user_ship = '';
+        $order->mobile_ship = '';
+        $order->address_ship = '';
+        $order->request = '';
+        $order->cmnd = !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd;
+        $secretKey = rand(10000,1000000);
+        $order->secretkey  = Yii::$app->security->generatePasswordHash($secretKey);
+        if ($order->save()) {
+           Yii::$app->mailer->compose()
+           ->setFrom(Yii::$app->params['adminEmail'])
+           ->setTo($order->email)
+           ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
+           ->setTextBody('abc')
+           ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
+           ->send();
+           return [
+                'status' => true,
+                'order' => $order
+           ];
+       }
+       return false;
+   }
 }

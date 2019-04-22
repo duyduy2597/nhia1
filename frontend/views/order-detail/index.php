@@ -5,7 +5,7 @@ use frontend\models\mysql\Order;
 $urlImage = Yii::$app->params['be'].'upload'; 
 $detail = $orderDetail->attributes; 
 $detail = json_decode($detail['details'],true);
-//var_dump($orderDetail);die; 
+$this->title ="Review-success";
 ?>
 
 <section>
@@ -27,6 +27,8 @@ $detail = json_decode($detail['details'],true);
 						<li class="list-group-item"><b>User Phone:</b> <?php echo $detail['buyer']['phone']; ?></li>
 						<li class="list-group-item"><b>Email:</b> <?php echo $detail['buyer']['email']; ?></li>
 						<li class="list-group-item"><b>Địa chỉ:</b> <?php echo $detail['buyer']['address']; ?></li>
+						<li class="list-group-item"><b>Kiểu thanh toán:</b> <?php echo $detail['type']; ?></li>
+						<li class="list-group-item"><b>Total:</b> <?php echo $detail['totalPrice']; ?></li>
 					</ul>								
 				</div>
 			</div>
@@ -94,10 +96,9 @@ $detail = json_decode($detail['details'],true);
 							<td></td>
 							<td></td>
 							<td></td>						
-							<td><?php echo Html::a('Hủy đơn',Url::to(['/site/login','cancel' => json_encode([
-								'order_id' => $orderDetail->order_id,
-								'cmnd' => $orderDetail->cmnd
-							])]),[
+							<td><?php echo Html::a('Hủy đơn',Url::to(['/order-detail/cancel-order',
+								'orderId' => $orderDetail['order_id']
+							]),[
 								'class' => 'btn btn-default check_out'
 								]); ?></td>
 							</tr>

@@ -132,59 +132,34 @@ public function actionRemoveItemFromCart()
 public function actionCheckoutType()
 {
     $session = Yii::$app->session;
+    $orderModel = new Order();
     $model  = new CheckoutForm();
     $currentData = $session['cart'];
     if (!isset($currentData) || count($session['cart']) <= 0) {
         return $this->redirect(array('/site/index')); 
     }else{
-        $buyer = Yii::$app->user->identity;
         if ($model->load(Yii::$app->request->post())) {
-          $details = [
-            'buyer' => [
-                'userId' => !is_null($buyer) ? $buyer['id'] : null,
-                'email' => !is_null($buyer) ? $buyer['email'] : $model->email,
-                'username' => null,
-                'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd,
-                'phone' => $model->phone,
-                'address' => $model->address,
-                'attributes' => !is_null($buyer) ? $buyer['attributes'] : '',
-            ],
-            'details' => $currentData
-        ];      
-        $order = new Order();
-        $order->use_id = !is_null($buyer) ? $buyer['id'] : 0;
-        $order->details = json_encode($details);
-        $order->status = 1;
-        $order->email = !is_null($buyer) ? $buyer['email'] : $model->email;
-        $order->use_name = '';
-        $order->mobile = $model->phone;
-        $order->address = $model->address;
-        $order->user_ship = '';
-        $order->mobile_ship = '';
-        $order->address_ship = '';
-        $order->request = '';
-        $order->cmnd = !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd;
-        $secretKey = rand(10000,1000000);
-        $order->secretkey  = Yii::$app->security->generatePasswordHash($secretKey);
-        if ($order->save()) {
-           Yii::$app->mailer->compose()
-           ->setFrom(Yii::$app->params['adminEmail'])
-           ->setTo($order->email)
-           ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
-           ->setTextBody('abc')
-           ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
-           ->send();
-           return $this->redirect(['/order-detail/index',
-             'orderId' => $order->order_id,
-             'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
-       }
-   } else {
-    return $this->render('checkout',[
-        'data' => $currentData,
-        'model' => $model
-    ]);
-}
-}
+            if ($model->checkoutType == 0) {
+                Yii::$app->session['order-user-info'] = $model;
+                return $this->redirect(['/payment/index']);
+            }else{
+                $totalCart = 0;
+                foreach ($currentData as $key => $item) {
+                    $totalCart = $totalCart + ((int)$item['quantity'] * (int)$item['pro_price']);
+                }
+                $check = $orderModel->createOrder($model,$currentData,number_format($totalCart).' VNĐ');
+                if ($check['status'] == true) {
+                    $buyer = Yii::$app->user->identity;
+                    return $this->redirect(['/order-detail/index','orderId' => $check['order']['order_id'],'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd ]);
+                }
+            }
+        } else {
+            return $this->render('checkout',[
+                'data' => $currentData,
+                'model' => $model
+            ]);
+        }
+    }
 }
 
 public function actionReviewConfirm()

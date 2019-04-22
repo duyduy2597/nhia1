@@ -13,6 +13,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use backend\models\Product;
 use frontend\models\mysql\Order;
+use frontend\models\CancelForm;
 /**
  * Site controller
  */
@@ -67,20 +68,31 @@ class OrderDetailController extends Controller
             return $this->redirect(array('/site/index')); 
         }
         return $this->render('index',[
-         'data' => $session['cart'],
-         'orderDetail' => $order
-     ]);
+           'data' => $session['cart'],
+           'orderDetail' => $order
+       ]);
     }
     public function actionCancelOrder($orderId)
     {
-        $order = Order::findOne($orderId);
-        if ($order['status'] == 1) {
-            $order->status = 0;
-            if ($order->save()) {
-                return $this->redirect(['/order-detail/index', 'orderId' => $orderId]);
+        $model = new CancelForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $order = Order::findOne($orderId);
+            $check = $model->checkValidateSecretKey($order->secretkey);
+            if ($check) {
+                $order->status = 0;
+                if ($order->save()) {
+                    return $this->redirect(['/order-detail/index',
+                       'orderId' => $orderId,
+                       'cmnd' => $order->cmnd]);
+                }
+            }else{
+                return $this->render('cancel',[
+                    'model' => $model
+                ]);
             }
-        }else{
-            throw new BadRequestHttpException('Đầu vào không hợp lệ !');
         }
+        return $this->render('cancel',[
+            'model' => $model
+        ]);
     }
 }
