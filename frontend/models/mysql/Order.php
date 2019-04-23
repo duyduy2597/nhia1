@@ -122,7 +122,7 @@ class Order extends ActiveRecord
            ->setTo($order->email)
            ->setSubject('MÃ XÁC THỰC ĐẶT HÀNG')
            ->setTextBody('abc')
-           ->setHtmlBody('<p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b>, vui lòng giữ riêng.</p>')
+           ->setHtmlBody('<p>Mã order của bạn là: <b>'.$order->order_id.'</b></p><br /><p>Mã xác thực đặt hàng của bạn là: <b>'.$secretKey.'</b></p><br /><p><b>Vui lòng giữ riêng những thông tin này.</b></p>')
            ->send();
            return [
                 'status' => true,

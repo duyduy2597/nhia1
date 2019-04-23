@@ -16,6 +16,7 @@ use frontend\models\ContactForm;
 use frontend\models\CommentForm;
 use backend\models\Product;
 use frontend\models\mysql\Order;
+use common\models\User;
 
 /**
  * Site controller
@@ -89,6 +90,8 @@ class SiteController extends Controller
     public function actionDetailProduct($id)
     {
         $product = Product::findOne($id);
+        $product = $product->attributes;
+        
         $relationProduct = Product::find()->all();
         $arrProduct = [];
         foreach ($relationProduct as $key => $pro) {
@@ -97,13 +100,74 @@ class SiteController extends Controller
         unset($arrProduct[$product['pro_id']]);
         $model = new CommentForm();
         if ($model->load(Yii::$app->request->post())) {
-            var_dump('<pre>',$model);die;
+            $user = $model->validateByEmail();
+            if ($user != false) {
+                $data = $model->createComment($user,$id);
+                if ($data != false) {
+                    return $this->redirect(['/site/detail-product',
+                     'id' => $id,
+                 ]);
+                }
+            }else{
+                return $this->render('detail-product',[
+                    'productDetail' => $product,
+                    'model' => $model,
+                    'relationProduct' => $arrProduct,
+                ]);
+            }
         }
         return $this->render('detail-product',[
-            'productDetail' => $product->attributes,
+            'productDetail' => $product,
             'model' => $model,
-            'relationProduct' => $arrProduct
+            'relationProduct' => $arrProduct,
         ]);
+    }
+
+    public function actionLoadMoreComment()
+    {
+        $product = Product::findOne($_GET['id']);
+        $product = $product->attributes;
+        $arrComment = json_decode($product['comment'],true);
+        $arrComment = $arrComment ? $arrComment : [];
+        if ($arrComment) {
+            $arrComment = array_reverse($arrComment);
+            $arrComment = array_slice($arrComment, $_GET['offset'],$_GET['limit']);
+            foreach ($arrComment as & $comment) {
+                $time = (time() - (int)$comment['creation_time']);
+                $checkTime = round($time);
+                if ($time/86400 >= 1) {
+                    $comment['display_time_comment'] = date("d-m-Y H:i:s",$comment['creation_time']);         
+                }
+                else{
+                    $minutes = $time/60;
+                    if (round($minutes) >= 60) {
+                        if (round($minutes/60) == 1) {
+                            $comment['display_time_comment'] = round($minutes/60) . ' hour ago';
+                        }else{
+                            $comment['display_time_comment'] = round($minutes/60) . ' hours ago';
+                        }
+                    }else{
+                        $second = $minutes * 60;
+                        if (round($second) < 60) {
+                            $comment['display_time_comment'] = round($second) . ' seconds ago';
+                        }
+                        else{
+                            $comment['display_time_comment'] = round($minutes) . ' min ago';
+                        }
+                    }
+                }
+            }
+        }
+        $dataReturn = [
+            'status' => true,
+            'data' => []
+        ];
+        if (count($arrComment) < $_GET['limit']) {
+            $dataReturn['status'] = false;
+        }
+        $dataReturn['data'] = $arrComment;
+        echo json_encode($dataReturn);
+        die;
     }
 
     public function actionAddToCart()

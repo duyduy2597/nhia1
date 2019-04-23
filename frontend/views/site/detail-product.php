@@ -2,6 +2,7 @@
 $urlImage = Yii::$app->params['be'].'upload'; 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+$this->registerJsFile("@web/js/product-detail/index.js",['depends' => 'yii\web\JqueryAsset']);
 ?>
 <section>
 	<div class="container">
@@ -50,44 +51,46 @@ use yii\helpers\Html;
 				<div class="category-tab shop-details-tab"><!--category-tab-->
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs">
-							<li><a href="#comments" data-toggle="tab">Comments</a></li>
-							<li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
 						</ul>
 					</div>
 					<div class="tab-content">		
-						<div class="tab-pane fade" id="comments" >
-							
-						</div>
+						<div class="tab-pane fade active in" id="comments" >
+							<div class="row bootstrap snippets">
+								<div class="col-sm-12">
+									<div class="comment-wrapper">
+										<div class="panel panel-default" >
+											<div class="panel-heading" style="background-color: #FE980F;color: #FFFFFF;">
+												Viết bình luận
+											</div>
+											<div class="panel-body">
+												<div class="login-form">																	
+													<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>						
+													<?= $form->field($model, 'email')->textInput(['autofocus' => false,'placeholder' => 'Your email']) ?>
 
-						<div class="tab-pane fade active in" id="reviews" >
-							<div class="col-sm-12">
-								<ul>
-									<li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-									<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-									<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-								</ul>
-								<p><b>Write Your Review</b></p>
-								
-								<div class="login-form">																	
-									<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+													<?= $form->field($model, 'body')->textInput(['autofocus' => false,'placeholder' => 'Bình luận của bạn']) ?>
 
-									<?= $form->field($model, 'name')->textInput(['autofocus' => false,'placeholder' => 'Your name']) ?>
+													<div class="form-group">
+														<?= Html::submitButton('Submit', ['class' => 'btn btn-default col-sm-offset-10',]) ?>
+													</div>
 
-									<?= $form->field($model, 'email')->textInput(['autofocus' => false,'placeholder' => 'Your email']) ?>
+													<?php ActiveForm::end(); ?>
+												</div>
+												<div class="clearfix"></div>
+												<hr>
+												<ul class="media-list" id="list-comment">
 
-									<?= $form->field($model, 'body')->textArea() ?>
+												</ul>
 
-									<div class="form-group">
-										<?= Html::submitButton('Submit', ['class' => 'btn btn-default',]) ?>
+											</div>
+											<div class="panel-footer"><div class="row"><div id='block-btnLoadMoreComment' class="col-sm-6 col-sm-offset-3"></div></div></div>
+										</div>
 									</div>
 
-									<?php ActiveForm::end(); ?>
 								</div>
 							</div>
-						</div>
-
+						</div>						
 					</div>
-				</div><!--/category-tab-->				
+				</div>				
 			</div>
 		</div>
 	</div>
