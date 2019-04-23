@@ -1,13 +1,13 @@
 <?php 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\bootstrap\Alert;
 use frontend\models\mysql\Order;
 $urlImage = Yii::$app->params['be'].'upload'; 
 $detail = $orderDetail->attributes; 
 $detail = json_decode($detail['details'],true);
 $this->title ="Review-success";
 ?>
-
 <section>
 	<div class="container">
 		<div class="breadcrumbs">
@@ -16,6 +16,14 @@ $this->title ="Review-success";
 				<li class="active">Order Detail</li>
 			</ol>
 		</div>
+		<?php if (Yii::$app->session->getFlash('flashMessage') != null): ?>
+			<div class="row">
+				<?php echo Alert::widget([
+					'options' => ['class' => 'alert-success'],
+					'body' => Yii::$app->session->getFlash('flashMessage'),
+				]); ?>
+			</div>
+		<?php endif ?>
 		<div class="col-sm-6">
 			<div class="panel panel-default">
 				<!-- Default panel contents -->

@@ -62,21 +62,25 @@ class PaymentController extends Controller
 
     public function actionPaymentSuccess()
     {
-        $params = [
-            'order' => Yii::$app->session['order-paypal']
-        ];
-        Yii::$app->PayPalRestApi->processPayment($params);
-        $orderModel = new Order();
-        $data = Yii::$app->session['cart'];
-        $model = Yii::$app->session['order-user-info'];
-        $check = $orderModel->createOrder($model,$data,Yii::$app->session['order-total-price'].' USD');
-        if ($check['status'] == true) {
-            $buyer = Yii::$app->user->identity;
-            Yii::$app->session->destroy();
-            return $this->redirect(['/order-detail/index', 
-                'orderId' => $check['order']['order_id'],
-                'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd]);
-        }else{
+        try {
+            $params = [
+                'order' => Yii::$app->session['order-paypal']
+            ];
+            Yii::$app->PayPalRestApi->processPayment($params);
+            $orderModel = new Order();
+            $session = Yii::$app->session;
+            $model = Yii::$app->session['order-user-info'];
+            $check = $orderModel->createOrder($model,$session['cart'],Yii::$app->session['order-total-price'].' USD');
+            if ($check['status'] == true) {
+                $buyer = Yii::$app->user->identity;
+                Yii::$app->session->destroy();
+                return $this->redirect(['/order-detail/index', 
+                    'orderId' => $check['order']['order_id'],
+                    'cmnd' => !is_null($buyer) ? $buyer['cmnd'] : $model->cmnd]);
+            }else{
+                return $this->redirect('/');
+            }
+        } catch (\yii\db\Exception $e) {
             return $this->redirect('/');
         }
     }

@@ -13,6 +13,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\CommentForm;
 use backend\models\Product;
 use frontend\models\mysql\Order;
 
@@ -88,8 +89,20 @@ class SiteController extends Controller
     public function actionDetailProduct($id)
     {
         $product = Product::findOne($id);
+        $relationProduct = Product::find()->all();
+        $arrProduct = [];
+        foreach ($relationProduct as $key => $pro) {
+            $arrProduct[$pro['pro_id']] = $pro->attributes;
+        }
+        unset($arrProduct[$product['pro_id']]);
+        $model = new CommentForm();
+        if ($model->load(Yii::$app->request->post())) {
+            var_dump('<pre>',$model);die;
+        }
         return $this->render('detail-product',[
-            'product' => $product->attributes
+            'productDetail' => $product->attributes,
+            'model' => $model,
+            'relationProduct' => $arrProduct
         ]);
     }
 

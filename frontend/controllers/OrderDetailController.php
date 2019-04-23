@@ -81,6 +81,16 @@ class OrderDetailController extends Controller
             if ($check) {
                 $order->status = 0;
                 if ($order->save()) {
+                    Yii::$app->mailer->compose()
+                    ->setFrom(Yii::$app->params['adminEmail'])
+                    ->setTo($order->email)
+                    ->setSubject('HỦY ĐẶT HÀNG')
+                    ->setTextBody('abc')
+                    ->setHtmlBody('<p>Hủy đặt hàng thành công !</p>')
+                    ->send();
+                    $session = Yii::$app->session;
+                    $session->addFlash('flashMessage');
+                    $session->setFlash('flashMessage', 'Hủy đặt hàng thành công !');
                     return $this->redirect(['/order-detail/index',
                        'orderId' => $orderId,
                        'cmnd' => $order->cmnd]);
