@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Signup';
+$this->title = 'THÔNG TIN TÀI KHOẢN';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,18 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>  
     <div class="row">
         <div class="col-sm-12">
-            <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+            <h2>THÔNG TIN TÀI KHOẢN</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true,'disabled' => true]) ?>
 
-            <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'email')->textInput(['disabled' => true]) ?>
 
-            <?= $form->field($model, 'cmnd') ?>   
+            <?= $form->field($model, 'cmnd')->textInput(['disabled' => true]) ?>   
 
             <?= $form->field($model, 'fullName') ?>
 
@@ -38,10 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'birthYear') ?>           
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
-
             <div class="form-group">
-                <?= Html::submitButton('Signup', ['class' => 'btn btn-ghost', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton('Update', ['class' => 'btn btn-ghost', 'name' => 'signup-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

@@ -74,11 +74,12 @@ AppAsset::register($this);
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">							
 								<?php if (!Yii::$app->user->isGuest): ?>
-									<li><a href=""><i class="fa fa-user"></i> <?php echo Yii::$app->user->identity->username; ?></a></li>
+									<li><a href="/user/profile?id=<?php echo Yii::$app->user->identity->id; ?>"><i class="fa fa-user"></i> <?php echo Yii::$app->user->identity->username; ?></a></li>
 								<?php endif ?>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Search Order</a></li>
+								<li><a href="/user/search-order"><i class="fa fa-crosshairs"></i> Search Order</a></li>
 								<li><a href="/cart/index"><i class="fa fa-shopping-cart"></i> Cart <span id="itemsCart"><?php echo (isset(Yii::$app->session['cart']) && count(Yii::$app->session['cart']) > 0) ? '('.count(Yii::$app->session['cart']).')' : '(0)'; ?></span></a></li>
 								<?php if (Yii::$app->user->isGuest): ?>
+									<li><a href="/site/signup">Signup</a></li>
 									<li><a href="/site/login"><i class="fa fa-lock"></i> Login</a></li>
 								<?php endif ?>
 								<?php if (!Yii::$app->user->isGuest): ?>
@@ -179,7 +180,19 @@ AppAsset::register($this);
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-2">
+					<div class="col-sm-8">
+						<div class="fb-page"
+    						data-href="https://www.facebook.com/Vui-Vui-Vẻ-947456168740674/"
+     						data-tabs="messages"
+     						data-width="400"
+    						data-height="300"
+     						data-small-header="true">
+	<div class="fb-xfbml-parse-ignore">
+		<blockquote></blockquote>
+	</div>
+</div>
+					</div>
+					<!-- <div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Service</h2>
 							<ul class="nav nav-pills nav-stacked">
@@ -214,7 +227,7 @@ AppAsset::register($this);
 								<li><a href="#">Ticket System</a></li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Chăm Sóc Khách Hàng</h2>
@@ -239,6 +252,29 @@ AppAsset::register($this);
 				</div>
 			</div>
 		</div>
+		<div>
+			<a href="https://www.facebook.com/Vui-Vui-Vẻ-947456168740674/" title="Gửi tin nhắn cho chúng tôi trên Facebook">Liên hệ với chúng tôi trên Facebook</a>
+		</div>
+		<script type="text/javascript">
+	window.fbAsyncInit = function () {
+		FB.init({
+			appId: '657549527725084',
+			xfbml: true,
+			version: 'v2.6'
+		});
+	};
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+
 		
 		<div class="footer-bottom">
 			<div class="container">

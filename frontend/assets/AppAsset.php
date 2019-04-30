@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     'css/animate.css',
     'css/main.css',
     'css/responsive.css',
+    'css/fb.css',
             ];
     public $js = [
     //'js/jquery.js',

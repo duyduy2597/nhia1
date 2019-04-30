@@ -27,6 +27,25 @@ function addToCart(pro) {
     });
 }
 
+//search order
+$('#form-search-order').on('beforeSubmit', function(e) {
+    var form = $(this);
+    var formData = form.serialize();
+    $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: formData,
+        success: function (data) {
+             console.log(data);
+        },
+        error: function () {
+            alert("Something went wrong");
+        }
+    });
+}).on('submit', function(e){
+    e.preventDefault();
+});
+
 /*scroll to top*/
 
 $(document).ready(function () {

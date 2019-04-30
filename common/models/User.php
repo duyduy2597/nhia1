@@ -42,7 +42,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 
@@ -53,21 +59,20 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'cmnd', 'role_id', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'email', 'cmnd'], 'required'],
             [['attributes'], 'string'],
-            [['role_id', 'isActive', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['email'], 'string', 'max' => 50],
             [['cmnd'], 'string', 'max' => 12],
 
-            
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['cmnd'], 'unique'],
             [['password_reset_token'], 'unique'],
 
-            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role_id' => 'id']],
+            // [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role_id' => 'id']],
             ['isActive', 'default', 'value' => self::STATUS_ACTIVE],
             //['isActive', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -202,5 +207,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function updateProfile($id,$params)
+    {
+        $user = User::findOne($id);
+        $attributes = json_decode($user->attributes,true);
+        $attributes = $params;
+        $user->attributes = json_encode($attributes);
+        return $user->save();
     }
 }
