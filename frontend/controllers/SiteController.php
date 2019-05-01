@@ -16,6 +16,7 @@ use frontend\models\ContactForm;
 use frontend\models\CommentForm;
 use backend\models\Product;
 use frontend\models\mysql\Order;
+use frontend\models\mysql\Category;
 use common\models\User;
 
 /**
@@ -377,5 +378,32 @@ class SiteController extends Controller
         }else{
             return $this->redirect(['/']);
         }
+    }
+
+    public function actionSearchProductByCate($cateId)
+    {
+        $categories = Category::find()
+        ->where([
+            'isDeleted' => 0])
+        ->select(['cat_id','cat_name','prent_id'])
+        ->asArray()
+        ->all();
+        $cateDetail = [];
+        foreach ($categories as $cate) {
+            if ($cate['cat_id'] == $cateId) {
+                $cateDetail = $cate;break; 
+            } 
+        }
+        $data = Product::find()
+        ->select(['pro_id','pro_name','pro_image','pro_price'])
+        ->where(['isDeleted' => 0])
+        ->andFilterWhere(['=','cat_id',$cateDetail['cat_id']])
+        ->orderBy(['created_at' => SORT_DESC])
+        ->asArray()
+        ->all();
+        return $this->render('index',[
+            'arrProduct' => $data,
+            'titleContent' => $cateDetail['cat_name']
+        ]);
     }
 }

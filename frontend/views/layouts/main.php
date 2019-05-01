@@ -111,7 +111,7 @@ AppAsset::register($this);
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
+										<img src="/images/home/iframe1.png" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -126,7 +126,7 @@ AppAsset::register($this);
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe2.png" alt="" />
+										<img src="/images/home/iframe2.png" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -141,7 +141,7 @@ AppAsset::register($this);
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe3.png" alt="" />
+										<img src="/images/home/iframe3.png" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -156,7 +156,7 @@ AppAsset::register($this);
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe4.png" alt="" />
+										<img src="/images/home/iframe4.png" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -169,7 +169,7 @@ AppAsset::register($this);
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
-							<img src="images/home/map.png" alt="" />
+							<img src="/images/home/map.png" alt="" />
 							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
 						</div>
 					</div>
@@ -182,16 +182,16 @@ AppAsset::register($this);
 				<div class="row">
 					<div class="col-sm-8">
 						<div class="fb-page"
-    						data-href="https://www.facebook.com/Vui-Vui-Vẻ-947456168740674/"
-     						data-tabs="messages"
-     						data-width="400"
-    						data-height="300"
-     						data-small-header="true">
-	<div class="fb-xfbml-parse-ignore">
-		<blockquote></blockquote>
-	</div>
-</div>
+						data-href="https://www.facebook.com/Vui-Vui-Vẻ-947456168740674/"
+						data-tabs="messages"
+						data-width="400"
+						data-height="300"
+						data-small-header="true">
+						<div class="fb-xfbml-parse-ignore">
+							<blockquote></blockquote>
+						</div>
 					</div>
+				</div>
 					<!-- <div class="col-sm-2">
 						<div class="single-widget">
 							<h2>Service</h2>
@@ -256,24 +256,24 @@ AppAsset::register($this);
 			<a href="https://www.facebook.com/Vui-Vui-Vẻ-947456168740674/" title="Gửi tin nhắn cho chúng tôi trên Facebook">Liên hệ với chúng tôi trên Facebook</a>
 		</div>
 		<script type="text/javascript">
-	window.fbAsyncInit = function () {
-		FB.init({
-			appId: '657549527725084',
-			xfbml: true,
-			version: 'v2.6'
-		});
-	};
-	(function (d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
+			window.fbAsyncInit = function () {
+				FB.init({
+					appId: '657549527725084',
+					xfbml: true,
+					version: 'v2.6'
+				});
+			};
+			(function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
 
 		
 		<div class="footer-bottom">

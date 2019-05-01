@@ -253,6 +253,15 @@ a.notification-added-cart i {
     padding-bottom: 10px;
 }
 
+.category-products ul li a:hover{
+    background: none;
+    color: #fdb45e;
+}
+.category-products ul li a{
+    color: #696763;
+}
+
+
 .mainmenu ul li a:hover,
 .mainmenu ul li a.active,
 .shop-menu ul li a.active {
