@@ -65,7 +65,7 @@ use yii\helpers\Url;
 			
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
-					<h2 class="title text-center">Sản phẩm hot</h2>
+					<h2 class="title text-center"><?php echo $titleContent; ?></h2>
 					<?php 
 					$urlImage = Yii::$app->params['be'].'upload'; 
 					?>

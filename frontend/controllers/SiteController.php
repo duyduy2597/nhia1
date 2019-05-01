@@ -77,13 +77,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $data = Product::findAll(['isDeleted' => 0]);
-        $arrProduct = [];
-        foreach ($data as $value) {
-            $arrProduct[$value['pro_id']] = $value->attributes;
-        }
+        $data = Product::find()
+        ->select(['pro_id','pro_name','pro_image','pro_price'])
+        ->where(['isDeleted' => 0])
+        ->orderBy(['created_at' => SORT_DESC])
+        ->asArray()
+        ->all();
         return $this->render('index',[
-            'arrProduct' => $arrProduct
+            'arrProduct' => $data,
+            'titleContent' => 'Sản phẩm hot'
         ]);
     }
 
@@ -105,8 +107,8 @@ class SiteController extends Controller
                 $data = $model->createComment($user,$id);
                 if ($data != false) {
                     return $this->redirect(['/site/detail-product',
-                     'id' => $id,
-                 ]);
+                       'id' => $id,
+                   ]);
                 }
             }else{
                 return $this->render('detail-product',[
@@ -204,9 +206,9 @@ class SiteController extends Controller
                     $order->status = 0;
                     if ($order->save()) {
                         return $this->redirect(['/order-detail/index',
-                         'orderId' => $orderId,
-                         'cmnd' => $dataCancel['cmnd']
-                     ]);
+                           'orderId' => $orderId,
+                           'cmnd' => $dataCancel['cmnd']
+                       ]);
                     }
                 }else{
                     throw new ForbiddenHttpException('Bạn không được quyền thực hiện hành động này, ok!');
@@ -342,5 +344,33 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSearchProduct()
+    {
+        $request = Yii::$app->request;
+
+        if ($request->post()) {
+            $params = $request->bodyParams;
+            if ($params['txtSearchProduct']) {
+                $data = Product::find()
+                ->select(['pro_id','pro_name','pro_image','pro_price'])
+                ->where(['isDeleted' => 0])
+                ->andFilterWhere([ is_numeric($params['txtSearchProduct']) ? '=' : 'like',
+                    is_numeric($params['txtSearchProduct']) ? 'pro_price' : 'pro_name',
+                    $params['txtSearchProduct']])
+                ->orderBy(['created_at' => SORT_DESC])
+                ->asArray()
+                ->all();
+                return $this->render('index',[
+                    'arrProduct' => $data,
+                    'titleContent' => 'Result'
+                ]);
+            }else{
+                return $this->redirect(['/']);
+            }
+        }else{
+            return $this->redirect(['/']);
+        }
     }
 }
