@@ -31,13 +31,13 @@ function addToCart(pro) {
 $('#form-search-order').on('beforeSubmit', function(e) {
     var form = $(this);
     var formData = form.serialize();
+    $("#detail-order").html('');
     $("#loader").append('<div id="block-loader" class="spinner"><div class="dot1"></div><div class="dot2"></div></div>');
     $.ajax({
         url: form.attr("action"),
         type: form.attr("method"),
         data: formData,
         success: function (res) {
-            $("#detail-order").html('');
             data = $.parseJSON(res);
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
@@ -46,9 +46,9 @@ $('#form-search-order').on('beforeSubmit', function(e) {
                     for (var j = 0; j < detail_pro.length; j++) {
                         var orderDate = new Date(parseInt(data[i].created_at)*1000);
                         var displayOrderDate = orderDate.getUTCDate()+'-'+(orderDate.getUTCMonth() + 1)+'-'+orderDate.getUTCFullYear()+' '+orderDate.getHours() + ':' + ("0" + orderDate.getMinutes()).substr(-2) + ':' + ("0" + orderDate.getSeconds()).substr(-2);
-                        var priceItem = parseInt(detail_pro[i].pro_price);
+                        var priceItem = parseInt(detail_pro[j].pro_price);
                         var format = priceItem.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        dataAppend = '<tr><td>'+data[i].order_id+'</td><td>'+data[i].address+'</td><td>'+data[i].mobile+'</td><td>'+data[i].cmnd+'</td><td>'+detail_pro[j].pro_name+'('+format+' VND)</td><td>'+detail_pro[j].quantity+'</td><td>'+displayOrderDate+'</td></tr>';
+                        dataAppend = '<tr><td>'+data[i].order_id+'</td><td>'+data[i].address+'</td><td>'+data[i].mobile+'</td><td>'+data[i].cmnd+'</td><td>'+detail_pro[j].pro_name+'('+format+' VND)</td><td>'+detail_pro[j].quantity+'</td><td>'+displayOrderDate+'</td><td>'+detail_order.type+'</td></tr>';
                         $("#detail-order").append(dataAppend);
                     }
                 }

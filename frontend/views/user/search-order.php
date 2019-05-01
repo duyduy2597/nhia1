@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						<th>Product</th>
 						<th>Quantity</th>
 						<th>Order_date</th>
+						<th>Checkout_type</th>
 					</tr>
 				</thead>
 				<tbody id="detail-order">
