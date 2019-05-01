@@ -353,12 +353,17 @@ class SiteController extends Controller
         if ($request->post()) {
             $params = $request->bodyParams;
             if ($params['txtSearchProduct']) {
+                if (is_numeric($params['txtSearchProduct']) && $params['txtSearchProduct'] % 1000 != 0) {
+                    $paramsPrice = $params['txtSearchProduct'] * 1000;
+                }else{
+                    $paramsPrice = $params['txtSearchProduct'];
+                }
                 $data = Product::find()
                 ->select(['pro_id','pro_name','pro_image','pro_price'])
                 ->where(['isDeleted' => 0])
-                ->andFilterWhere([ is_numeric($params['txtSearchProduct']) ? '=' : 'like',
+                ->andFilterWhere([is_numeric($params['txtSearchProduct']) ? '=' : 'like',
                     is_numeric($params['txtSearchProduct']) ? 'pro_price' : 'pro_name',
-                    $params['txtSearchProduct']])
+                    is_numeric($params['txtSearchProduct']) ? $paramsPrice : $params['txtSearchProduct']])
                 ->orderBy(['created_at' => SORT_DESC])
                 ->asArray()
                 ->all();
