@@ -32,8 +32,11 @@ class SearchOrderForm extends Model
      */
     public function Search()
     {   
-        $order = Order::find->(['email' => $this->email])->all();
-        var_dump('<pre>',$order);die;
+        $order = Order::find()->select(['order_id','email', 'mobile','address','cmnd','details','created_at'])
+        ->where(['email' => $this->email])
+        ->orderBy(['created_at' => SORT_DESC])
+        ->asArray()
+        ->all();
         return $order;
     }
 }
