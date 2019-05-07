@@ -86,7 +86,7 @@ class SiteController extends Controller
         ->all();
         return $this->render('index',[
             'arrProduct' => $data,
-            'titleContent' => 'Sản phẩm hot'
+            'titleContent' => 'New Product'
         ]);
     }
 
