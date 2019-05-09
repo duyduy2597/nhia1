@@ -44,6 +44,15 @@ $this->registerJsFile("@web/js/product-detail/index.js",['depends' => 'yii\web\J
 						<div class="product-information"><!--/product-information-->
 							<h2><?php echo $productDetail['pro_name']; ?></h2>
 							<p><b>Giá:</b> <?php echo $productDetail['pro_price']; ?></p>
+							<a href="javascript:;" onclick='addToCart(<?php echo json_encode([
+								'id' => $productDetail['pro_id'],
+								'pro_name' => $productDetail['pro_name'],
+								'quantity' => 1,
+								'pro_price' => $productDetail['pro_price'],
+								'pro_image' => $productDetail['pro_image'],
+								]); ?>)' class="btn btn-default add-to-cart">
+								<i class="fa fa-shopping-cart"></i> Add to cart
+							</a>
 						</div><!--/product-information-->
 					</div>
 				</div><!--/product-details-->
