@@ -131,6 +131,19 @@ class OrderController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionSearchDetail()
+    {
+        $id = $_POST['id'];
+        $data = $this->findModel($id);
+        $data = $data->attributes['details'];
+        $data = json_decode($data,true);
+        foreach ($data['details'] as $key => &$value) {
+            $urlImage = Yii::$app->params['be'].'upload'; 
+            $value['imageSrc'] = $urlImage.'/'.$value['pro_image'];
+        }
+        echo json_encode($data);die;
+    }
+
     /**
      * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -138,6 +151,7 @@ class OrderController extends Controller
      * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+    
     protected function findModel($id)
     {
         if (($model = Order::findOne($id)) !== null) {

@@ -32,7 +32,7 @@ class SearchOrderForm extends Model
      */
     public function Search()
     {   
-        $order = Order::find()->select(['order_id','email', 'mobile','address','cmnd','details','created_at'])
+        $order = Order::find()->select(['order_id','email', 'mobile','address','cmnd','details','created_at','status'])
         ->where(['email' => $this->email])
         ->orderBy(['created_at' => SORT_DESC])
         ->asArray()

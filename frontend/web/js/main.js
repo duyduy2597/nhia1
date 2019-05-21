@@ -41,6 +41,16 @@ $('#form-search-order').on('beforeSubmit', function(e) {
             data = $.parseJSON(res);
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
+                    var statusDisplay = '';
+                    var btnCancel = '';
+                    if (data[i].status == 1) {
+                        statusDisplay = 'Chưa giao';
+                        btnCancel = '<td><a class="btn btn-default check_out" href="/order-detail/cancel-order?orderId='+data[i].order_id+'">Hủy đơn</a></td>'
+                    }else if(data[i].status == 2){
+                        statusDisplay = 'Đã giao';
+                    }else{
+                        statusDisplay = 'Đã hủy';
+                    }
                     detail_order = $.parseJSON(data[i].details);
                     detail_pro = Object.values(detail_order.details);
                     for (var j = 0; j < detail_pro.length; j++) {
@@ -48,7 +58,7 @@ $('#form-search-order').on('beforeSubmit', function(e) {
                         var displayOrderDate = orderDate.getUTCDate()+'-'+(orderDate.getUTCMonth() + 1)+'-'+orderDate.getUTCFullYear()+' '+orderDate.getHours() + ':' + ("0" + orderDate.getMinutes()).substr(-2) + ':' + ("0" + orderDate.getSeconds()).substr(-2);
                         var priceItem = parseInt(detail_pro[j].pro_price);
                         var format = priceItem.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        dataAppend = '<tr><td>'+data[i].order_id+'</td><td>'+data[i].address+'</td><td>'+data[i].mobile+'</td><td>'+data[i].cmnd+'</td><td>'+detail_pro[j].pro_name+'('+format+' VND)</td><td>'+detail_pro[j].quantity+'</td><td>'+displayOrderDate+'</td><td>'+detail_order.type+'</td></tr>';
+                        dataAppend = '<tr><td>'+data[i].order_id+'</td><td>'+data[i].address+'</td><td>'+data[i].mobile+'</td><td>'+data[i].cmnd+'</td><td>'+detail_pro[j].pro_name+'('+format+' VND)</td><td>'+detail_pro[j].quantity+'</td><td>'+displayOrderDate+'</td><td>'+detail_order.type+'</td><td>'+statusDisplay+'</td>'+btnCancel+'</tr>';
                         $("#detail-order").append(dataAppend);
                     }
                 }
