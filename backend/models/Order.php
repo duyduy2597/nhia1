@@ -22,7 +22,12 @@ use Yii;
  * @property int $created_at
  */
 class Order extends \yii\db\ActiveRecord
-{
+{   
+    const STATUS = [
+        0 => 'Đã hủy',
+        1 => 'Chưa giao',
+        2 => 'Đã giao'
+    ];
     /**
      * {@inheritdoc}
      */
